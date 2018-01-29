@@ -1,0 +1,60 @@
+<template>
+	<div class="SelectAddress">
+		<div class=" shoppingCard_content"  >
+	  		<ul>
+	  			<li class="mar_top" >
+	  					<div class="SeectAddress_lf">
+	  							<label class="mint-checklist-label">
+									<span class="mint-checkbox" >
+										<input type="checkbox"   class="mint-checkbox-input" value=""> 
+										<span class="mint-checkbox-core" ></span>
+									</span>
+									 <!-- <span class="mint-checkbox-label organge_fonts">中海通专卖店</span> -->
+								</label>
+	  					</div>	
+						<div class="SeectAddress_rt">
+	  						<div class="SelectAddress_title">
+	  							<span class="SA_name organge_fonts">周萍芳</span>
+	  							<span class="SA_phone organge_fonts">1231231231233</span>
+	  						</div>
+	  						<div class="SelectAddress_bot">
+	  							<span class="organge_fonts">[默认地址]</span>阿基德开讲啦恐龙当家方式看了接口了解点开链接卡拉胶点开链接fpooasoj ooipo 
+	  						</div>
+	  					</div>
+	  			</li>
+	  			<li class="mar_top" >
+	  					<div class="SeectAddress_lf">
+	  							<label class="mint-checklist-label">
+									<span class="mint-checkbox" >
+										<input type="checkbox"   class="mint-checkbox-input" value=""> 
+										<span class="mint-checkbox-core" ></span>
+									</span>
+									 <!-- <span class="mint-checkbox-label organge_fonts">中海通专卖店</span> -->
+								</label>
+	  					</div>	
+						<div class="SeectAddress_rt">
+	  						<div class="SelectAddress_title">
+	  							<span class="SA_name organge_fonts">周萍芳</span>
+	  							<span class="SA_phone organge_fonts">1231231231233</span>
+	  						</div>
+	  						<div class="SelectAddress_bot">
+	  							<span class="organge_fonts">[默认地址]</span>阿基德开讲啦恐龙当家方式看了接口了解点开链接卡拉胶点开链接fpooasoj ooipo 
+	  						</div>
+	  					</div>
+	  			</li>
+	  		</ul>
+		</div>
+	</div>
+</template>
+<style>
+	.SelectAddress li {border-bottom: 1px solid #D8D8D8;}
+	.SelectAddress .shoppingCard_content li{margin:0;}
+	.shoppingCard_content .mar_top{display: flex;}
+	.shoppingCard_content .SeectAddress_lf{position:relative;flex: 0 0 30px; width: 30px;text-align: center;}
+	.SeectAddress_rt{flex: 1;}
+	.SeectAddress_lf .mint-checklist-label{position: absolute; top:50%;transform: translateX(-50%);    margin-top: -10px;}
+	.SelectAddress_title{position: relative;padding: 10px 0;    height: 20px;
+    line-height: 20px;}
+	.SA_phone{position: absolute;right: 10px;}
+	.SelectAddress_bot{color: #434343; 	font-size: 0.6rem;line-height: 15px;padding-bottom: 14px;width: 96%;}
+</style>

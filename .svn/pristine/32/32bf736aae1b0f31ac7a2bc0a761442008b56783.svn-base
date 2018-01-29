@@ -1,0 +1,477 @@
+<template>
+	<div class="Ehomebox">
+		<div class="Ehome" :class="{'shows':isShows}">
+			<div class="Ehome_boxs">
+				<div class="Ehome_toolbar " >
+					<div class="toolbar_search">
+						<input type="" name="" @focus="isShowFn()">
+						<span class="toolbar_searchBox" >
+							<img src="./img/search.png" width="14px" height="14px">
+							 搜索 
+						 </span>
+					</div>
+				</div>
+				<ul>
+					<li  v-for="items in dataList">
+						<div class="Ehome_swiper margin_bot" v-if="items.floor==1">
+							<mt-swipe  :auto="2500">
+							  <mt-swipe-item :show-indicators="false" v-for="(firstItem,key) in items.weChatPages" :key='key'>
+									<img :src="firstItem.picUrl" @click="linkUrlFn(firstItem.linkUrl)" class="img-responsive">
+							  </mt-swipe-item>
+							</mt-swipe>
+						</div>
+						
+						<div class="Ehome_navbar " v-if="items.floor==2">
+							<ul class="flex">
+								<li v-for="(secondItem,index) in items.weChatPages">
+									<img :src="secondItem.picUrl" @click="linkUrlFn(secondItem.linkUrl)" class="img-responsive">
+								</li>
+							</ul>
+						</div>
+
+						<div class="Ehome_navbar margin_bot" v-if="items.floor==3">
+							<ul class="flex">
+								<li v-for="(thirdItem,index) in items.weChatPages">
+									<img :src="thirdItem.picUrl" @click="linkUrlFn(thirdItem.linkUrl)" class="img-responsive">
+								</li>
+							</ul>
+						</div>
+						
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==4">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==5">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div class="Ehome_Twoimg flex margin_bot" v-if="items.floor==6">
+							<li class="flex-center" v-for="(sixthItem,index) in items.weChatPages">
+								<img :src="sixthItem.picUrl"  @click="linkUrlFn(sixthItem.linkUrl)" class="img-responsive">
+							</li>
+						</div>
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==7">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==8">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div class="Ehome_Twoimg flex margin_bot" v-if="items.floor==9">
+							<li class="flex-center"  v-for="(ninthItem,index) in items.weChatPages">
+								<img :src="ninthItem.picUrl" @click="linkUrlFn(ninthItem.linkUrl)" class="img-responsive">
+							</li>
+						</div>
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==10">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div class="Ehome_fourimg margin_bot flex"  v-if="items.floor==11" >
+							<div class="Ehome_four_lf flex-center" > 
+								<li v-for="(eleventhItem_1,index) in items.weChatPages">
+									<img v-if="eleventhItem_1.sortNum==1" :src="eleventhItem_1.picUrl" @click="linkUrlFn(eleventhItem_1.linkUrl)" class="img-responsive">
+								</li>
+							</div>
+							<ul class="Ehome_four_rt flex-center"> 
+								<li class="Ehome_four_top">
+									<span v-for="(eleventhItem_2,index) in items.weChatPages">
+										<img v-if="eleventhItem_2.sortNum==2" :src="eleventhItem_2.picUrl" @click="linkUrlFn(eleventhItem_2.linkUrl)" class="img-responsive">
+									</span>
+								</li>
+								<li>
+									<ul class="Ehome_four_bottom flex">
+										<li>
+											<span v-for="(eleventhItem_3,index) in items.weChatPages">
+												<img v-if="eleventhItem_3.sortNum==3" :src="eleventhItem_3.picUrl" @click="linkUrlFn(eleventhItem_3.linkUrl)" class="img-responsive">
+											</span>
+										</li>
+										<li>
+											<span v-for="(eleventhItem_4,index) in items.weChatPages">
+												<img v-if="eleventhItem_4.sortNum==4" :src="eleventhItem_4.picUrl" @click="linkUrlFn(eleventhItem_4.linkUrl)"  class="img-responsive">
+											</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+						<div class="Ehome_fourimg flex margin_bot"  v-if="items.floor==12">
+							<div class="Ehome_four_lf flex-center" > 
+								<li v-for="(twelfthItem_1,index) in items.weChatPages">
+									<img v-if="twelfthItem_1.sortNum==1" :src="twelfthItem_1.picUrl" @click="linkUrlFn(twelfthItem_1.linkUrl)" class="img-responsive">
+								</li>
+							</div>
+							<ul class="Ehome_four_rt flex-center"> 
+								<li class="Ehome_four_top">
+									<span v-for="(twelfthItem_2,index) in items.weChatPages">
+										<img v-if="twelfthItem_2.sortNum==2" :src="twelfthItem_2.picUrl" @click="linkUrlFn(twelfthItem_2.linkUrl)" class="img-responsive">
+									</span>
+								</li>
+								<li>
+									<ul class="Ehome_four_bottom flex">
+										<li>
+											<span v-for="(twelfthItem_3,index) in items.weChatPages">
+												<img v-if="twelfthItem_3.sortNum==3" :src="twelfthItem_3.picUrl" @click="linkUrlFn(twelfthItem_3.linkUrl)" class="img-responsive">
+											</span>
+										</li>
+										<li>
+											<span v-for="(twelfthItem_4,index) in items.weChatPages">
+												<img v-if="twelfthItem_4.sortNum==4" :src="twelfthItem_4.picUrl" @click="linkUrlFn(twelfthItem_4.linkUrl)"  class="img-responsive">
+											</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+						<div class="Ehome_fourimg margin_bot flex"  v-if="items.floor==13">
+							<div class="Ehome_four_lf flex-center" > 
+								<li v-for="(thirteenthItem_1,index) in items.weChatPages">
+									<img v-if="thirteenthItem_1.sortNum==1" :src="thirteenthItem_1.picUrl" @click="linkUrlFn(thirteenthItem_1.linkUrl)" class="img-responsive">
+								</li>
+							</div>
+							<ul class="Ehome_four_rt flex-center"> 
+								<li class="Ehome_four_top">
+									<span v-for="(thirteenthItem_2,index) in items.weChatPages">
+										<img v-if="thirteenthItem_2.sortNum==2" :src="thirteenthItem_2.picUrl" @click="linkUrlFn(thirteenthItem_2.linkUrl)" class="img-responsive">
+									</span>
+								</li>
+								<li>
+									<ul class="Ehome_four_bottom flex">
+										<li>
+											<span v-for="(thirteenthItem_3,index) in items.weChatPages">
+												<img v-if="thirteenthItem_3.sortNum==3" :src="thirteenthItem_3.picUrl" @click="linkUrlFn(thirteenthItem_3.linkUrl)" class="img-responsive">
+											</span>
+										</li>
+										<li>
+											<span v-for="(thirteenthItem_4,index) in items.weChatPages">
+												<img v-if="thirteenthItem_4.sortNum==4" :src="thirteenthItem_4.picUrl" @click="linkUrlFn(thirteenthItem_4.linkUrl)"  class="img-responsive">
+											</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						
+						<div class="Ehome_fourimg margin_bot flex"  v-if="items.floor==14">
+							<div class="Ehome_four_lf flex-center" > 
+								<li v-for="(fourteenthItem_1,index) in items.weChatPages">
+									<img v-if="fourteenthItem_1.sortNum==1" :src="fourteenthItem_1.picUrl" @click="linkUrlFn(fourteenthItem_1.linkUrl)" class="img-responsive">
+								</li>
+							</div>
+							<ul class="Ehome_four_rt flex-center"> 
+								<li class="Ehome_four_top">
+									<span v-for="(fourteenthItem_2,index) in items.weChatPages">
+										<img v-if="fourteenthItem_2.sortNum==2" :src="fourteenthItem_2.picUrl" @click="linkUrlFn(fourteenthItem_2.linkUrl)" class="img-responsive">
+									</span>
+								</li>
+								<li>
+									<ul class="Ehome_four_bottom flex">
+										<li>
+											<span v-for="(fourteenthItem_3,index) in items.weChatPages">
+												<img v-if="fourteenthItem_3.sortNum==3" :src="fourteenthItem_3.picUrl" @click="linkUrlFn(fourteenthItem_3.linkUrl)" class="img-responsive">
+											</span>
+										</li>
+										<li>
+											<span v-for="(fourteenthItem_4,index) in items.weChatPages">
+												<img v-if="fourteenthItem_4.sortNum==4" :src="fourteenthItem_4.picUrl" @click="linkUrlFn(fourteenthItem_4.linkUrl)"  class="img-responsive">
+											</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+						<div class="Ehome_fourimg margin_bot flex"  v-if="items.floor==15">
+							<div class="Ehome_four_lf flex-center" > 
+								<li v-for="(fifteenthItem_1,index) in items.weChatPages">
+									<img v-if="fifteenthItem_1.sortNum==1" :src="fifteenthItem_1.picUrl" @click="linkUrlFn(fifteenthItem_1.linkUrl)" class="img-responsive">
+								</li>
+							</div>
+							<ul class="Ehome_four_rt flex-center"> 
+								<li class="Ehome_four_top">
+									<span v-for="(fifteenthItem_2,index) in items.weChatPages">
+										<img v-if="fifteenthItem_2.sortNum==2" :src="fifteenthItem_2.picUrl" @click="linkUrlFn(fifteenthItem_2.linkUrl)" class="img-responsive">
+									</span>
+								</li>
+								<li>
+									<ul class="Ehome_four_bottom flex">
+										<li>
+											<span v-for="(fifteenthItem_3,index) in items.weChatPages">
+												<img v-if="fifteenthItem_3.sortNum==3" :src="fifteenthItem_3.picUrl" @click="linkUrlFn(fifteenthItem_3.linkUrl)" class="img-responsive">
+											</span>
+										</li>
+										<li>
+											<span v-for="(fifteenthItem_4,index) in items.weChatPages">
+												<img v-if="fifteenthItem_4.sortNum==4" :src="fifteenthItem_4.picUrl" @click="linkUrlFn(fifteenthItem_4.linkUrl)"  class="img-responsive">
+											</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+						<div class="Ehome_fourimg margin_bot flex"  v-if="items.floor==16">
+							<div class="Ehome_four_lf flex-center" > 
+								<li v-for="(sixteenthItem_1,index) in items.weChatPages">
+									<img v-if="sixteenthItem_1.sortNum==1" :src="sixteenthItem_1.picUrl" @click="linkUrlFn(sixteenthItem_1.linkUrl)" class="img-responsive">
+								</li>
+							</div>
+							<ul class="Ehome_four_rt flex-center"> 
+								<li class="Ehome_four_top">
+									<span v-for="(sixteenthItem_2,index) in items.weChatPages">
+										<img v-if="sixteenthItem_2.sortNum==2" :src="sixteenthItem_2.picUrl" @click="linkUrlFn(sixteenthItem_2.linkUrl)" class="img-responsive">
+									</span>
+								</li>
+								<li>
+									<ul class="Ehome_four_bottom flex">
+										<li>
+											<span v-for="(sixteenthItem_3,index) in items.weChatPages">
+												<img v-if="sixteenthItem_3.sortNum==3" :src="sixteenthItem_3.picUrl" @click="linkUrlFn(sixteenthItem_3.linkUrl)" class="img-responsive">
+											</span>
+										</li>
+										<li>
+											<span v-for="(sixteenthItem_4,index) in items.weChatPages">
+												<img v-if="sixteenthItem_4.sortNum==4" :src="sixteenthItem_4.picUrl" @click="linkUrlFn(sixteenthItem_4.linkUrl)"  class="img-responsive">
+											</span>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==17">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==18">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div v-if="items.floor==19" class="margin_bot">
+							<ul class="Ehome_Threeimg flex" >
+								<li class="flex-center" v-for="(nineteenthItem,index) in items.weChatPages">
+									<img :src="nineteenthItem.picUrl" @click="linkUrlFn(nineteenthItem.linkUrl)" class="img-responsive">
+								</li>
+							</ul> 
+						</div>
+						
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==20">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div v-if="items.floor==21" class="margin_bot">
+							<ul class="Ehome_Threeimg flex" >
+								<li class="flex-center" v-for="(twentyfirstItem,index) in items.weChatPages">
+									<img :src="twentyfirstItem.picUrl" @click="linkUrlFn(twentyfirstItem.linkUrl)" class="img-responsive">
+								</li>
+							</ul> 
+						</div>
+
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==22">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div v-if="items.floor==23" class="margin_bot">
+							<ul class="Ehome_Threeimg flex" >
+								<li class="flex-center" v-for="(twentythirdItem,index) in items.weChatPages">
+									<img :src="twentythirdItem.picUrl" @click="linkUrlFn(twentythirdItem.linkUrl)" class="img-responsive">
+								</li>
+							</ul> 
+						</div>
+
+						<div class="Ehome_oneimg margin_bot" v-if="items.floor==24">
+							<img :src="items.weChatPages[0].picUrl" @click="linkUrlFn(items.weChatPages[0].linkUrl)" class="img-responsive" width="100%" >
+						</div>
+						<div v-if="items.floor==25" class="margin_bot">
+							<ul class="Ehome_Threeimg flex" >
+								<li class="flex-center" v-for="(twentyfifthItem,index) in items.weChatPages">
+									<img :src="twentyfifthItem.picUrl" @click="linkUrlFn(twentyfifthItem.linkUrl)" class="img-responsive">
+								</li>
+							</ul> 
+						</div>
+				
+
+						<!-- <div class="Ehome_fourimg flex"  v-if="items.floor==11">
+							<div class="Ehome_four_lf flex-center"> 
+								<img src="./home/2.png" class="img-responsive">
+							</div>
+							<ul class="Ehome_four_rt flex-center"> 
+								<li>
+									<img src="./home/11.png" class="img-responsive">
+								</li>
+								<li>
+									<ul class="Ehome_four_bottom flex">
+										<li>
+											<img src="./home/111.png" class="img-responsive">
+										</li>
+										<li>
+											<img src="./home/111.png" class="img-responsive">
+											
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div> -->
+					</li>
+				</ul>
+			</div>
+		
+			<div class="footer_bot">
+				<mt-tabbar>
+					<mt-tab-item id="tab1" >
+						<div  @click="goPage('Ehome')" :class="{'on': clicked === 'Ehome' }" >
+							<span class="icon1" ></span>
+							<p class="icon_font">首页</p>
+						</div>
+						
+					</mt-tab-item>
+					<mt-tab-item id="tab2" >
+						<div  @click="goPage('CategoryPage')" :class="{'on': clicked === 'CategoryPage' }">
+							<span class="icon2" ></span>
+							<p class="icon_font" >分类</p>
+						</div>
+					</mt-tab-item>
+					<mt-tab-item id="tab3" >
+						<div  @click="goPage('ShoppingCard')"  :class="{'on': clicked === 'ShoppingCard' }">
+							<span class="icon3" ></span>
+							<p class="icon_font">购物车</p>
+						</div>
+					</mt-tab-item>
+					<mt-tab-item id="tab4" >
+						<div @click="goPage('PersonalCenter')" :class="{'on': clicked === 'PersonalCenter' }">
+							<span class="icon4" ></span>
+							<p  class="icon_font">我的</p>
+						</div>
+					</mt-tab-item>
+				</mt-tabbar>
+			</div>
+		</div>
+		<search  :class="{'shows':!isShows}" @getIsShow="SetisShow" ></search>
+	</div>
+</template>
+<script>
+import Search from './Search'
+import {setCookie,getCookie} from './../cookie/cookie.js'
+import { Tabbar, TabItem } from 'mint-ui';
+import router from '@/router'
+import qs from 'qs'
+import Vue from 'vue'
+import {Indicator} from 'mint-ui';
+export default{
+	name:'Ehome',
+	components:{
+		Search,
+	},
+	data(){
+		return {
+			i:100,
+			dataList:[],
+			dataInfo:{
+	 			mallId:getCookie('mallId')
+			},
+			isShows:false,
+			clicked:'Ehome',
+     		getUrl:getCookie('getUrl')
+		}
+	},
+	methods:{
+		SetisShow(data){
+    		this.isShows = data;
+    	},
+    	goPage(Gopage){
+			this.clicked = Gopage
+			this.$router.push({path:'/'+Gopage})
+		},
+		searchInfo(){
+			Indicator.open('Loading...');
+			var url = this.$store.state.localHostUrl +'/goHomePage.json'
+      		var data= qs.stringify(this.dataInfo)
+      		var that = this
+      		that.$http.post(url,data,{emulateJSON:true}).then(
+      			function (res){
+      				let getUrl= res.data.personalCenterUrl
+      				setCookie('getUrl',getUrl,1000*60)
+      				if(res.data.ret==0){
+      					console.log(res.data.data)
+      					that.dataList=res.data.data
+						
+      				}
+					else{
+						// alert(res.data.descript)
+
+					}
+					Indicator.close('Loading...');
+      			}
+      		)
+		},
+		linkUrlFn(url){
+			console.log(url)
+			if(url!=""){
+				window.location.href=url
+			}
+		},
+
+		isShowFn(){
+        	this.isShows=!this.isShows;
+        },
+        getUrlKey (name) {
+	      return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [''])[1].replace(/\+/g, '%20')) || null
+	    },
+
+	},
+	mounted(){
+		this.searchInfo();
+		this.$store.state.refererUrl = decodeURIComponent(this.getUrlKey('refererUrl'))
+		if(this.$store.state.refererUrl!="NULL"){
+			window.addEventListener("popstate", function(e) { 
+		       window.location.href=this.$store.state.refererUrl
+		    }, false); 
+		}else{
+			let url=this.getUrlKey('close')
+			if(url){
+				WeixinJSBridge.invoke('closeWindow',{},function(res){
+				})
+			}
+			
+		}
+	}
+
+}
+</script>
+<style>
+	.Ehome_toolbar{background: #F79E20;}
+	.toolbar_search{width: 80%;margin:0 auto;position: relative;padding:12px 0;}
+	.toolbar_search>input{height: 30px;line-height: 30px; text-align: center;width: 100%;border-radius: 10px;}
+	.toolbar_search .glyphicon-search{position:absolute;transform: translateX(-50%) translateY(-50%);left: 50%; top:50%;color:#A2A2A2;font-size: 0.5rem;line-height: 30px;}
+	.margin_bot{margin-bottom:5px;}
+	.Ehome_swiper{height:145px;width: 100%; max-height: 145px;}
+	.Ehome_navbar{background: #fff;}
+	.Ehome_navbar .flex {    display: flex;  flex-direction: row;  flex-wrap: wrap;text-align: center;padding-bottom:20px;}
+	.Ehome_navbar .flex li{width: 25%; box-sizing: border-box;}
+	.Ehome_navbar .flex li img{ margin:0 auto;}
+	.Ehome_oneimg{ }
+	.img-responsive {
+	  display: block;
+	  height: auto;
+	  width: 100%;box-sizing: border-box;
+	}
+	.Ehome_Twoimg li{width: 50%;}
+	.Ehome_Twoimg li:first-child{padding-right: 5px;}
+	.Ehome_Threeimg li{padding-right: 5px;width: 33.33%}
+	.Ehome_Threeimg li:last-child{padding-right: 0;}
+	.Ehome_four_lf{padding-right: 5px;flex:0.8;}
+	.Ehome_four_rt{flex:1.1}
+	/*.Ehome_four_rt li:first-child{padding-bottom:3px;}*/
+	.Ehome_four_rt>li{width: 100%;    height: 50%;}
+	.Ehome_four_bottom li:first-child{margin-right: 3px;}
+	/*.Ehome_four_bottom li:last-child{margin-bottom: 3px;}*/
+
+	.Ehome_four_rt img{height: 100%}
+	.Ehome_four_bottom {height: 100%}
+	.Ehome_four_bottom li{width: 50%}
+	.toolbar_searchBox{position: absolute; font-size: 0.7rem; color:#9A9A9A;transform: translateY(-50%) translateX(-50%) ;top:50%; left: 50%;}
+	.toolbar_searchBox>img{
+		 vertical-align: top;padding-right:3px;
+	}
+	.Ehome_four_top{
+		padding-bottom: 3px;
+		    box-sizing: border-box;
+	}
+	.Ehome_boxs{
+		margin-bottom:58px;
+	}
+</style>

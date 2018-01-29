@@ -1,0 +1,26 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
+import register from '@/components/register/register'
+import Home from '@/components/Home/Home'
+import OnlineOrder from '@/components/OnlineOrder/OnlineOrder'
+Vue.use(Router)
+
+const router =  new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'register',
+      component: register
+    },
+    {
+      path: '/Home',
+      component: Home
+    },
+     {
+      path: '/OnlineOrder',
+      component: OnlineOrder
+    }
+  ]
+})
+export default router

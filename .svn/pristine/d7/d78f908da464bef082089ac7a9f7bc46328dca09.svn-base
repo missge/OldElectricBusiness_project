@@ -1,0 +1,150 @@
+<template>
+	<div class="MealCard">
+		<div class="swipe-wrapper">
+	        <mt-swipe :auto="0" :show-indicators="false"  ref="swipeWrapper">
+	            <mt-swipe-item class="swip-item-1 item">
+	            	<div class="MC_bg">
+			        	<p>购物卡 &nbsp;兵器218所综合科</p>
+			        	<h3>￥201.95</h3>
+			        	<div class="MC_bot">
+			        		<span>Name.小黑人</span>
+			        		<span>No.18172389798798734</span>
+			        	</div>
+			        	<img src="./img/bg_icon1.png" width="100%" height="100%">
+			        </div>
+	            </mt-swipe-item>
+	            <mt-swipe-item class="swip-item-2 item">2</mt-swipe-item>
+	            <mt-swipe-item class="swip-item-3 item">3</mt-swipe-item>
+	        </mt-swipe>
+	    </div>
+	    <div class="MC_title">
+	    	<span>消费明细</span>
+	    </div>
+	    <ul>
+		  	<li class="MC_list">
+				<div class="MC_listlf">
+					<p class="MC_state">在线点餐</p>
+					<p class="MC_time">09-11 19:03:22</p>
+				</div>	  		
+				<div class="MC_listrt">
+					-18.50元
+				</div>
+		  	</li>
+		  	<li class="MC_list">
+				<div class="MC_listlf">
+					<p class="MC_state">在线点餐1</p>
+					<p class="MC_time">09-11 19:03:22</p>
+				</div>	  		
+				<span class="MC_listrt blue_font">
+					+18.50元
+				</span>
+		  	</li>
+	  	</ul>
+	</div>
+</template>
+<script>
+	export default{
+  		name:'MealCard',
+  		methods:{
+
+  			
+  		}
+	}
+</script>
+<style>
+.swipe-wrapper{
+	padding:20px 30px 30px 30px; 
+}
+.MC_bg{
+	position: relative;
+	height: 170px;
+	/*background: url("./img/bg_icon1.png") no-repeat center 100%;*/
+    background-size: 100%;
+
+}
+.MC_bg>p{
+	padding:0 0 15px 0;
+	color:#fff;
+	font-size: 0.9rem;
+	position: absolute;
+	top:30px;
+	left: 40px;
+}
+.MC_bg>h3{
+	position: absolute;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color:#fff;
+	top: 65px;
+	left: 40px;
+}
+.MC_bot{
+	display: flex;
+	justify-content: space-between;
+	position: absolute;
+	bottom: 5px;
+	color: #2A8695;
+	width: 100%;
+
+}
+.MC_bot>span:first-child{
+	padding-left: 20px;
+	font-size: 10px;
+}
+.MC_bot>span:last-child{
+	padding-right: 10px;
+	font-size: 10px;
+}
+
+.MC_list{
+	border-bottom: 2px solid #EFF0F2;
+	background: #fff;
+	width: 100%;
+	justify-content: space-between;
+	display: flex;
+}
+ul>.MC_list:last-child{
+	border:none;
+}
+.MC_listlf{
+	font-size: 10px;
+	padding: 15px 0 15px 10px;
+}
+.MC_listrt{
+	line-height: 60px;
+	padding-right: 20px;
+	color:#959595;
+}
+.MC_state{
+	margin-bottom: 7px;
+}
+.blue_font{
+	color:#3475B9;
+}
+
+
+
+.swipe-wrapper{
+    height: 170px;
+}
+.MC_title{
+	width: 98%;
+	margin: 0 auto;
+	border-top:1px solid #3275BB;
+	position: relative;
+	height: 16px;
+}
+.MC_title>span{
+	position: absolute;
+	display: block;
+	text-align: center;
+	width: 80px;
+	background: #F7F7F7;
+	top:-8px;
+	left: 50%;
+	transform: translateX(-50%);
+	color: #3575BD;
+	font-weight: bold;
+}
+  
+</style>

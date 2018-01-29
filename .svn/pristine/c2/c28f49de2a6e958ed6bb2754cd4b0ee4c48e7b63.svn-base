@@ -1,0 +1,210 @@
+<template>
+	<div class="Ehome" >
+		<div class="Ehome_boxs">
+			<div class="Ehome_toolbar margin_bot" >
+				<div class="toolbar_search">
+					<input type="" name="" >
+					<span class="glyphicon glyphicon-search"> 搜索 </span>
+				</div>
+			</div>
+			<ul>
+				<li  v-for="items in dataList">
+					<div class="Ehome_swiper margin_bot" v-if="items.floor==1">
+						<mt-swipe >
+						  <mt-swipe-item :show-indicators="false" v-for="(firstItem,index) in items.weChatPages">
+								<img :src="firstItem.picUrl" @click="linkUrlFn(firstItem.linkUrl)" class="img-responsive">
+						  </mt-swipe-item>
+						</mt-swipe>
+					</div>
+					
+					<div class="Ehome_navbar margin_bot" v-if="items.floor==2">
+						<ul class="flex">
+							<li v-for="(secondItem,index) in items.weChatPages">
+								<img :src="secondItem.picUrl" @click="linkUrlFn(secondItem.linkUrl)" class="img-responsive">
+							</li>
+						</ul>
+					</div>
+					
+					<div class="Ehome_oneimg margin_bot" v-if="items.floor==3">
+						<img src="./home/66.png" class="img-responsive" width="100%" >
+					</div>
+					
+					<div class="Ehome_fourimg flex" v-if="items.floor==4">
+						<ul class="Ehome_four_rt flex-center"> 
+							<li>
+								<ul class="Ehome_Twoimg flex margin_bot">
+									<li class="flex-center">
+										<img src="./home/111.png" class="img-responsive">
+									</li>
+									<li class="flex-center">
+										<img src="./home/111.png" class="img-responsive">
+									</li>
+								</ul>
+							</li>
+							<li>
+								<img src="./home/11.png" class="img-responsive">
+							</li>
+						</ul>
+					</div>
+					
+					<ul class="Ehome_Threeimg flex"  v-if="items.floor==4">
+						<li class="flex-center">
+							<img src="./home/2.png" class="img-responsive">
+						</li>
+						<li class="flex-center">
+							<img src="./home/2.png" class="img-responsive">
+						</li>
+						<li class="flex-center">
+							<img src="./home/2.png" class="img-responsive">
+						</li>
+					</ul>
+					<div class="Ehome_fourimg flex"  v-if="items.floor==4">
+						<div class="Ehome_four_lf flex-center"> 
+							<img src="./home/2.png" class="img-responsive">
+						</div>
+						<ul class="Ehome_four_rt flex-center"> 
+							<li>
+								<img src="./home/11.png" class="img-responsive">
+							</li>
+							<li>
+								<ul class="Ehome_four_bottom flex">
+									<li>
+										<img src="./home/111.png" class="img-responsive">
+									</li>
+									<li>
+										<img src="./home/111.png" class="img-responsive">
+										
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="footer_bot">
+			<mt-tabbar>
+				<mt-tab-item id="tab1" >
+					<div  @click="goPage('Ehome')">
+						<span class="icon1"></span>
+						<p class="icon_font">首页</p>
+					</div>
+					
+				</mt-tab-item>
+				<mt-tab-item id="tab2">
+					<div  @click="goPage('PersonalCenter')">
+						<span class="icon2"></span>
+						<p class="icon_font" >分类</p>
+					</div>
+				</mt-tab-item>
+				<mt-tab-item id="tab3" >
+					<div  @click="goPage('ShoppingCard')">
+						<span class="icon3"></span>
+						<p class="icon_font">购物车</p>
+					</div>
+				</mt-tab-item>
+				<mt-tab-item id="tab4" >
+					<div @click="goPage('')">
+						<span class="icon4"></span>
+						<p  class="icon_font">我的</p>
+					</div>
+				</mt-tab-item>
+			</mt-tabbar>
+		</div>
+	</div>
+
+</template>
+<script>
+import {setCookie,getCookie} from './../cookie/cookie.js'
+import { Tabbar, TabItem } from 'mint-ui';
+import router from '@/router'
+import qs from 'qs'
+import Vue from 'vue'
+export default{
+	name:'Ehome',
+	data(){
+		return {
+			i:100,
+			dataList:[],
+			dataInfo:{
+				mobile:getCookie('mobile'),
+	 			openId:getCookie('openId'),
+	 			mallId:'151267110000001'//getCookie('mallId')
+			}
+		}
+	},
+	methods:{
+		searchInfo(){
+			var url = this.$store.state.localHostUrl +'/goHomePage.json'
+      		var data= qs.stringify(this.dataInfo)
+      		var that = this
+      		that.$http.post(url,data,{emulateJSON:true}).then(
+      			function (res){
+      				if(res.data.ret==0){
+      					console.log(res.data.data)
+      					that.dataList=res.data.data
+						
+      				}
+					else{
+						alert(res.data.descript)
+
+					}
+      			}
+      		)
+		},
+		linkUrlFn(url){
+			window.location.href=url
+		},
+		goPage(Gopage){
+			this.$router.push({path:'/'+Gopage})
+		}
+	},
+	mounted(){
+		this.searchInfo()
+	}
+
+}
+</script>
+<style>
+.Ehome_boxs{margin-bottom: 50px;}
+
+	.footer_bot{position: fixed;bottom:0;width: 100%;}
+.icon1,.icon2,.icon3,.icon4{
+	display:inline-block;width: 27px;height: 20px;
+}
+.icon_font{
+	font-size: 0.75rem;
+}
+.icon1{background: url(./img/Hicon1.png) no-repeat center center;background-size: 50%;}
+.icon2{background: url(./img/Hicon2.png) no-repeat center center;background-size: 50%;}
+.icon3{background: url(./img/Hicon3.png) no-repeat center center;background-size: 50%;}
+.icon4{background: url(./img/Hicon4.png) no-repeat center center;background-size: 50%;}
+
+
+
+	.Ehome_toolbar{background: #F79E20;}
+	.toolbar_search{width: 80%;margin:0 auto;position: relative;padding:12px 0;}
+	.toolbar_search>input{height: 30px;line-height: 30px; text-align: center;width: 100%;border-radius: 10px;}
+	.toolbar_search .glyphicon-search{position:absolute;transform: translateX(-50%) translateY(-50%);left: 50%; top:50%;color:#A2A2A2;font-size: 0.5rem;line-height: 30px;}
+	.margin_bot{margin-bottom:5px;}
+	.Ehome_swiper{height:145px;width: 100%; max-height: 145px;}
+	.Ehome_navbar{background: #fff;}
+	.Ehome_navbar .flex {    display: flex;  flex-direction: row;  flex-wrap: wrap;text-align: center;padding-bottom:20px;}
+	.Ehome_navbar .flex li{width: 25%; box-sizing: border-box;}
+	.Ehome_navbar .flex li img{padding: 20px 20px 0 20px; margin:0 auto;}
+	.Ehome_oneimg{ }
+	.img-responsive {
+	  display: block;
+	  height: auto;
+	  width: 100%;box-sizing: border-box;
+	}
+	.Ehome_Twoimg li{width: 50%;}
+	.Ehome_Twoimg li:first-child{padding-right: 5px;}
+	.Ehome_Threeimg li{padding-right: 5px;}
+	.Ehome_Threeimg li:last-child{padding-right: 0;}
+	.Ehome_four_lf{padding-right: 5px;flex:0.8;}
+	.Ehome_four_rt{flex:1.1}
+	.Ehome_four_rt li:first-child{padding-bottom:5px;}
+	.Ehome_four_rt>li{width: 100%;    height: 50%;}
+	.Ehome_four_bottom li:first-child{margin-right: 1px;}
+</style>

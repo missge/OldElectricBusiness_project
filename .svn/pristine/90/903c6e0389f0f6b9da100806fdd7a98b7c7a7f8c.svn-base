@@ -1,0 +1,185 @@
+<template>
+	<div class="MealCard">
+		 <div class="swipe-wrapper">
+	   <!--      <mt-swipe :auto="0" :show-indicators="false"  ref="swipeWrapper">
+	            <mt-swipe-item class="swip-item-1 item" > -->
+	            	<div class="MC_bg" v-for="(items,index) in datalist">
+			        	<p>饭卡 &nbsp;{{items.companyName}}</p>
+			        	<h3><img class="ml4" width="10px" height="10px" src="../../assets/img/ml4.png"/>{{items.restAmt}}</h3>
+			        	<p class="two_p">卡号:{{items.cardNo}}</p>
+			        	<div class="MC_bot">
+			        		<span>Name.{{items.userName}}</span>
+			        		<span>No.{{mobile}}</span>
+			        	</div>
+
+			        	<img src="./img/bg_icon1.png" width="100%" height="100%">
+			        </div>
+	          <!--   </mt-swipe-item>
+	            <mt-swipe-item class="swip-item-2 item">2</mt-swipe-item>
+	            <mt-swipe-item class="swip-item-3 item">3</mt-swipe-item>
+	        </mt-swipe> -->
+	    </div>
+	    <div class="MC_title">
+	    	<span>消费明细</span>
+	    </div>
+	    <ul v-for="(items,index) in datalist">
+		  	<li class="MC_list" v-for="(item,index) in items.payRecord" >
+				<div class="MC_listlf">
+					<p class="MC_state" v-if="item.type==0">消费
+						<span v-if="item.flag==0" >（正常）</span>
+						<span v-if="item.flag==1" >（已冲正）</span>
+						<span v-if="item.flag==2" >（已退货）</span>
+						<span v-if="item.flag==3" >（已撤销）</span>
+					</p>
+					<p class="MC_state" v-if="item.type==1">充值
+						<span v-if="item.flag==0" >（正常）</span>
+						<span v-if="item.flag==1" >（已冲正）</span>
+						<span v-if="item.flag==2" >（已退货）</span>
+						<span v-if="item.flag==3" >（已撤销）</span>
+					</p>
+					<p class="MC_state" v-if="item.type==2">退款
+						<span v-if="item.flag==0" >（正常）</span>
+						<span v-if="item.flag==1" >（已冲正）</span>
+						<span v-if="item.flag==2" >（已退货）</span>
+						<span v-if="item.flag==3" >（已撤销）</span>
+					</p>
+					<p class="MC_time">{{item.payTime}}</p>
+				</div>	  		
+				<div class="MC_listrt">
+					<img class="ml4" width="10px" height="10px" src="../../assets/img/ml4.png"/>{{item.symbol}}{{item.payAmt}}
+				</div>
+		  	</li>
+	  	</ul> 
+	  	<div class="nowloading" v-show="is_loadding">
+			<img src="../../assets/img/nowloading.gif">
+		</div>
+	</div>
+</template>
+<script>
+	import {setCookie,getCookie} from '../../cookie/cookie.js'
+	export default{
+  		name:'MealCard',
+  		data(){
+  			return {
+  				is_loadding:this.$route.query.is_loadding,
+  				mobile:getCookie('mobile')
+  			}
+  		},
+  		methods:{
+
+  			
+  		},
+  		computed:{
+  			datalist(){
+  				 return this.$store.state.PayRecord.result
+  			}
+  		}
+
+	}
+</script>
+<style>
+.swipe-wrapper{
+	padding:20px 10px 30px 10px;
+}
+.MC_bg{
+	position: relative;
+	height: 170px;
+	/*background: url("./img/bg_icon1.png") no-repeat center 100%;*/
+    background-size: 100%;
+
+}
+.MC_bg>p{
+	padding:0 0 15px 0;
+	color:#fff;
+	font-size: 0.75rem;
+	position: absolute;
+	top:30px;
+	left: 40px;
+}
+.MC_bg>h3{
+	position: absolute;
+	font-size: 1.75rem;
+	font-weight: bold;
+	color:#fff;
+	top: 54px;
+	left: 40px;
+}
+.MC_bot{
+	display: flex;
+	justify-content: space-between;
+	position: absolute;
+	bottom: 5px;
+	color: #FF8F28;
+	width: 100%;
+
+}
+.MC_bot>span:first-child{
+	padding-left: 20px;
+	font-size: 0.7rem;
+}
+.MC_bot>span:last-child{
+	padding-right: 10px;
+	font-size: 0.7rem;
+}
+
+.MC_list{
+	border-bottom: 2px solid #EFF0F2;
+	background: #fff;
+	width: 100%;
+	justify-content: space-between;
+	display: flex;
+}
+ul>.MC_list:last-child{
+	border:none;
+}
+.MC_listlf{
+	font-size: 0.75rem;
+	padding: 15px 0 15px 10px;
+}
+.MC_listrt{
+	line-height: 60px;
+	padding-right: 20px;
+	color:#959595;
+	font-size: 0.65rem;
+}
+.MC_state{
+	margin-bottom: 7px;
+}
+.blue_font{
+	color:#3475B9;
+}
+
+
+.swipe-wrapper{
+    height: 170px;
+}
+.MC_title{
+	width: 96%;
+    margin: 0 auto;
+    /* border-top: 1px solid #3275BB; */
+    /* position: relative; */
+    height: 30px;
+    background: #fff;
+    line-height: 30px;
+    font-size: 0.75rem;
+    border-bottom: 1px solid #ddd;
+    color: #FF8F28;
+}
+.MC_title>span{margin-left:10px;}
+.MealCard>ul{width: 96%;margin:0 auto;}
+.MC_bg .two_p{top: 90px;font-size:0.75rem;}
+
+/*.MC_title>span{
+	position: absolute;
+	display: block;
+	text-align: center;
+	/*width: 80px;*/
+	/*background: #F7F7F7;
+	top:-8px;
+	left: 50%;
+	transform: translateX(-50%);
+	color: #3575BD;
+	font-weight: bold;*/
+/*}*/
+  
+</style>

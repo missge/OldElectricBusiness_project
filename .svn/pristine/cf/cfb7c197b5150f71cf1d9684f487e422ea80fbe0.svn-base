@@ -1,0 +1,215 @@
+<template>
+	<div class="EC_categoryPage">
+		<!-- <div class="show_toolbar" v-show="isShow!=true" > -->
+		<div class="show_toolbar" :class="{'shows':isShows}" >
+			<div class="toolbar" >
+				<div class="EC_CP_header">
+					<div class="EC_CP_input">
+						<input type="" placeholder="" @focus="isShowFn()"   name=""> 
+						<img  src="../assets/img/ML_search.png" width="18px" height="18px">
+					</div>	
+				</div>
+			</div>
+			<div class="EC_CP_goods ">
+				<div class="Online_goods">
+					<div class="menu-wrapper" ref="menuWrapper">
+						<ul class="EC_CP_menu_lf"  >
+							<li class="" v-for="(items,index) in datalist" @click="defaultCheck(index,items.familyId)" :class="on==index?'EC_CP_selected':''">
+								{{items.familyName}}	
+							</li>
+						</ul>
+					</div>
+					<div class="foods-wrapper EC_CP_wrapper"   id="wrapper"  ref="foodsWrapper">
+						<ul >
+							<li class="food-list-hook">
+								<div class="EC_CP_content" @click="GoMallList(firstItem.familyId)" v-for="(firstItem,index) in firstDatalist.mallFamilyGoodsDTO">
+									<!-- <img src="./img/goods1.png"> -->
+									<div class="EC_CP_imgbox">
+										<img :src="firstItem.picPath"  >
+										
+									</div>
+									<p>{{firstItem.familyName}}</p>
+								</div>
+								
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="footer_bot">
+				<mt-tabbar>
+					<mt-tab-item id="tab1" >
+						<div  @click="goPage('Ehome')" :class="{'on': clicked === 'Ehome' }" >
+							<span class="icon1" ></span>
+							<p class="icon_font">首页</p>
+						</div>
+						
+					</mt-tab-item>
+					<mt-tab-item id="tab2" >
+						<div  @click="goPage('CategoryPage')" :class="{'on': clicked === 'CategoryPage' }">
+							<span class="icon2" ></span>
+							<p class="icon_font" >分类</p>
+						</div>
+					</mt-tab-item>
+					<mt-tab-item id="tab3" >
+						<div  @click="goPage('ShoppingCard')"  :class="{'on': clicked === 'ShoppingCard' }">
+							<span class="icon3" ></span>
+							<p class="icon_font">购物车</p>
+						</div>
+					</mt-tab-item>
+					<mt-tab-item id="tab4" >
+						<div @click="goPage('PersonalCenter')" :class="{'on': clicked === 'PersonalCenter' }">
+							<span class="icon4" ></span>
+							<p  class="icon_font">我的</p>
+						</div>
+					</mt-tab-item>
+				</mt-tabbar>
+			</div>
+
+		</div>
+		<search  :class="{'shows':!isShows}" @getIsShow="SetisShow" ></search>
+	</div>
+</template>
+<script>
+import {setCookie,getCookie} from '../cookie/cookie.js'
+import qs from 'qs'
+import Vue from 'vue'
+import router from '@/router'
+import Search from './Search'
+import BScroll from 'better-scroll'
+import {Indicator} from 'mint-ui';
+export default{
+	name:'CategoryPage',
+	components:{
+		Search,
+	},
+	data(){  
+		return {
+			datalist:[],
+			// searchList:	this.$store.state.GoodsSearchOldInfo.result,
+			firstDatalist:[],
+      		OrderInfo :{
+	 			mallId:getCookie('mallId'),
+				familyId:this.$route.query.familyId
+
+      		},
+      		// isShow:false,
+      		searchInfo:{
+				mallId:getCookie('mallId'),
+      		},
+      		isShows:false,
+      		on:0,
+      		clicked:'CategoryPage',
+     		getUrl:getCookie('getUrl')
+      	
+		}
+	},
+	created() {
+
+	},
+    methods:{
+	 	getUrlKey (name) {
+	      return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [''])[1].replace(/\+/g, '%20')) || null
+	    },
+    	goPage(Gopage){
+			this.clicked = Gopage
+			this.$router.push({path:'/'+Gopage})
+		},
+    	SetisShow(data){
+    		this.isShows = data;
+    	},
+    	_initScroll() {
+			this.menuWrapper = new BScroll(this.$refs.menuWrapper, {
+			    click: true
+			});
+			  this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+			    click: true,
+			    probeType: 3
+			  });
+	 		 this.foodsScroll.on('scrollStart', () => {
+				    this.scrollFlag = true;
+			 });
+				  // 监控滚动事件
+			this.foodsScroll.on('scroll', (pos) => {
+			    this.foodsScrollY = Math.abs(Math.round(pos.y+60))
+		 	})
+		},
+    	dataLoad(){
+    		Indicator.open('Loading...');
+			var url = this.$store.state.localHostUrl +'/searchMallGoodsFamily.json'
+			var data= qs.stringify(this.OrderInfo)
+			var that = this
+			if(this.OrderInfo.familyId==null||this.OrderInfo.familyId==''){
+				this.OrderInfo.familyId=''
+			}
+			that.$http.post(url,data,{emulateJSON:true}).then(
+	      		function (res){
+	      			let defaultNum=res.data.defaultNum
+      				if(!res.data.ret){
+      					that.datalist=res.data.data
+						that.defaultCheck(defaultNum)
+      					// that.firstDatalist=that.datalist[0]
+      					let orderSysFlag=res.data.orderSysFlag
+      					let orderSysUrl=res.data.orderSysUrl
+      					setCookie('orderSysFlag',orderSysFlag,1000*60)
+      					setCookie('orderSysUrl',orderSysUrl,1000*60)
+						that.$nextTick(() => {
+			 				 that._initScroll(); 
+						})
+      				}
+					else{
+						// alert(res.data.descript)
+					}
+					Indicator.close('Loading...');
+	      		}
+	      	)
+	    },
+	    defaultCheck(i,Id){
+	    	this.on=i
+	    	this.firstDatalist=this.datalist[i]
+	    	setCookie('FamilyIdFlag',Id,1000*60)
+	    },
+		GoMallList(familyId){
+			this.$router.push({path:'MallList',query:{familyId:familyId,searchFlag:0}})
+		},
+	 	isShowFn(){
+        	this.isShows=!this.isShows;
+        },
+    },
+
+	// watch:{
+		// search:function(){
+		// 	this.searchInfo.goodsName=this.search
+		// 	var url = this.$store.state.localHostUrl +'/searchMallGoodsName.json'
+		// 	var data= qs.stringify(this.searchInfo)
+		// 	var that = this
+		// 	that.$http.post(url,data,{emulateJSON:true}).then(
+	 //      		function (res){
+  //     				if(res.data.ret==0){
+  //     					that.$router.push({path:'MallList',query:{goodsName:''}})
+      				
+  //     				}
+		// 			else{
+		// 				// alert(res.data.descript)
+		// 			}
+	 //      		}
+	 //      	)
+		// }
+	// },
+    mounted(){  
+		this.dataLoad();
+		this.$store.state.refererUrl = decodeURIComponent(this.getUrlKey('refererUrl'))
+		// if(this.$store.state.refererUrl!="NULL"){
+			window.addEventListener("popstate", function(e) { 
+				that.defaultCheck(getCookie('FamilyIdFlag'))
+		       window.location.href=this.$store.state.refererUrl
+		    }, false); 
+		// }
+    },
+}
+</script>
+<style>
+
+
+/*.hide_toolbar{display: none;}*/
+</style>

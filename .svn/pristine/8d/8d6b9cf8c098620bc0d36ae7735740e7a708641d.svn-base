@@ -1,0 +1,220 @@
+<template>
+	<div class="GoodsReturn">
+		<div class="ODP_header GoodsReturn_header">
+			<img src="../assets/img/pay_icon.png" width="100px" height="100px">
+			<p  class="ODP_title">提交成功</p>
+			<div class="ODP_code_prompt">
+				24小时内客服将会与您联系，<br/>请保持手机畅通，退换成功后资金将退回您原来的账户
+			</div>
+		</div>
+		<div class="GR_timeaxis ODP_header">
+			<div class="GR_timeaxis_box">
+				<ul >
+				<!-- 这里传过来的数据要有顺序（很重要），而且流程还要定一下，比如
+
+				流程一：
+				申请退款（默认），
+				卖家不同意，等待买家修改（8），
+				买家已修改，等待买家确认（？？）
+				退款申请达成，等待买买家回寄（9），
+				买家已退货，等待卖家确认收货（10），
+				卖家确认收货（？？）
+				待卖家退款（12）
+				退款成功（13）
+
+				流程二：
+				申请退款（默认），
+				退款申请达成，等待买买家回寄（9），
+				买家已退货，等待卖家确认收货（10），
+				卖家确认收货（？？）
+				待卖家退款（12）
+				退款成功（13）
+
+				流程三：
+				申请退款（默认），
+				卖家不同意（8），
+				退款关闭（11）
+
+				请将流程罗列清楚。
+				 -->
+					<li class="old_border pass_through" v-for="item in datalist.ordersRecs">
+						<i class="GR_icon  "></i>
+						<div class="GR_title">
+							申请退款
+						</div>
+						<span class="gray_fonts">
+							{{item.operTime}}
+						</span>
+					</li>
+					<li class="old_border pass_through">
+						<i class="GR_icon"></i>
+						<div class="GR_title">
+							商家确认
+						</div>
+						<span class="gray_fonts">
+							2017-09-12 0:00000
+						</span>
+					</li>
+					<li class="old_border">
+						<i class="GR_oldicon"></i>
+						<div class="GR_title">
+							商品回寄
+						</div>
+						<span class="gray_fonts" @click="GoAddReturnFn">
+							<span class="write_number">填写运单号</span>
+						</span>
+					</li>
+					<li class="old_border">
+						<i class="GR_oldicon"></i>
+						<div class="GR_title">
+							卖家确认收货
+						</div>
+						<span class="gray_fonts">
+							2017-09-12 0:00000
+						</span>
+					</li>
+					<li class="">
+						<i class="GR_oldicon"></i>
+						<div class="GR_title">
+							退款成功
+						</div>
+						<span class="gray_fonts">
+							2017-09-12 0:00000
+						</span>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+		<div class="GoodsReturn_bottom ">
+			<ul>
+				<li >
+					<div class="GoodsReturn_bottomlf">
+						申请时间：
+					</div>
+					<div class="GoodsReturn_bottomrt">
+						{{datalist.refundTime}}
+					</div>
+				</li>
+				<li>
+					<div class="GoodsReturn_bottomlf">
+						收货类型:
+					</div>
+					<div class="GoodsReturn_bottomrt">
+						{{datalist.isTakeGoods}}
+
+					</div>
+				</li>
+				<li>
+					<div class="GoodsReturn_bottomlf">
+						退货原因
+					</div>
+					<div class="GoodsReturn_bottomrt">
+						{{datalist.reMoReason}}
+						
+					</div>
+				</li>
+				<li>
+					<div class="GoodsReturn_bottomlf">
+						退货说明：
+					</div>
+					<div class="GoodsReturn_bottomrt">
+						{{datalist.reMoDesc}}
+					</div>
+				</li>
+				<li>
+					<div class="GoodsReturn_bottomlf">
+						商品图片:
+					</div>
+					<ul class="GoodsReturn_bottomrt GR_goods_img">
+						<li>
+							<img src="./img/TU.png" width="50px;">
+						</li>
+						<li>
+							<img src="./img/TU.png" width="50px;">
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</template>
+<script>
+import {setCookie,getCookie} from './../cookie/cookie.js'
+import qs from 'qs'
+import Vue from 'vue'
+import router from '@/router'
+export default{
+	name:'GoodsReturn',
+		data(){
+			return{
+				datalist:[],
+				OrderInfo :{
+		 			mobile:getCookie('mobile'),
+					openId:getCookie('openId'),
+	      			orderId:this.$route.query.orderId,
+	      			refId:this.$route.query.refId,
+	      		},
+	    
+
+	      	}
+
+		},
+		methods:{
+			searchOrder(){
+				debugger
+	      		var url = this.$store.state.localHostUrl +'/getRefundAuditInfo.json'
+	      		var data= qs.stringify(this.OrderInfo)
+	      		var that = this
+	      		that.$http.post(url,data,{emulateJSON:true}).then(
+	      			function (res){
+	      				if(!res.data.ret){
+	      					console.log(res.data)		
+	      					that.datalist=res.data
+	      				}
+						else{
+							alert(res.data.descript)
+
+						}
+	      			}
+	      		)
+	      	},
+	      	GoAddReturnFn(){
+				this.$router.push({path:'/AddReturn',query:{refId:this.$route.query.refId}})
+	      	}
+		},
+		mounted(){
+			this.searchOrder()
+		}
+	}
+</script>
+<style>
+	.GoodsReturn_header{margin-top:0;  position: relative;}
+	.GoodsReturn_header>.ODP_code_prompt{line-height:15px;padding-bottom: 24px;font-size: 0.6rem;color:#959595;}
+	.GR_timeaxis {background: #fff;}
+	.GR_timeaxis_box{width: 50%;margin:0 auto;}
+	.GR_timeaxis_box ul{padding:40px 0 0 0;}
+	.GR_timeaxis ul{    margin: 0 auto;max-width: 200px;}
+	.GR_timeaxis li{position: relative;height:48px;    margin-bottom: 10px;}
+	.old_border{border-left:2px solid #959595;}
+	.GR_timeaxis li>i{height: 24px;width:24px;display:block;position: absolute;left: -11px; top: -18px;z-index:10;}
+	.GR_oldicon{background: url("./img/old_icon.png") no-repeat center left;background-size:80%;}
+	.GR_icon{background:url("./img/return_icon.png") no-repeat center left;background-size:80%;}
+	.GR_title,.GR_timeaxis_box .gray_fonts{position: absolute;left: 16px;}
+	.GR_title{    color: #F08632;font-size: 0.6rem; top: -12px;}
+	.GR_timeaxis_box .gray_fonts{color:#959595;font-size: 0.6rem;top:5px;}
+	.pass_through{border-left:2px solid #F08632;}
+	.write_number{display: inline-block;height: 25px;line-height: 25px;padding: 0 8px;background: #A0A0A0;color: #fff;font-size: 0.6rem;border-radius: 5px;}
+	/*.ystep-progress{position: absolute;top:0;left: 12px;}*/
+	.GoodsReturn_bottom {background: #fff;margin-bottom:10px;}
+	.GoodsReturn_bottom>ul{width: 96%;margin:0 auto;}
+	.GoodsReturn_bottom>ul>li{border-bottom:1px solid #DCDCDC;display: flex;height: 40px;line-height: 40px;}
+	.GoodsReturn_bottom>ul>li:last-child{height:auto;line-height:auto;}
+	.GoodsReturn_bottomlf{flex: 0 0 60px;width: 60px;font-size: 0.6rem;}
+	.GoodsReturn_bottomrt{flex: 1;font-size: 0.6rem;padding-left: 3px;    overflow: hidden;}
+	.GR_goods_img{padding-top:10px;display: flex;}
+	.GR_goods_img li{width: 58px; height: 58px;    margin-bottom: 10px;margin-right: 10px;}
+	.GR_goods_img li img{padding:5px;
+		border:1px solid #2F2F2F;
+	}
+</style>

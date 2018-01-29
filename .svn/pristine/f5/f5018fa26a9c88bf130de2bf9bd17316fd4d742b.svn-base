@@ -1,0 +1,253 @@
+<template>
+<div>
+	<div class="OnlineOrder">
+		<div class="OnlineO_header">
+			<img src="./img/onlineo_bg.png" width="100%" height="100%">
+		</div>
+	</div>
+	<div class="Online_goods">
+		<div class="menu-wrapper">
+			<ul>
+				<li class="menu-item-selected">
+					<span class="text">
+						今日推荐
+					</span>
+				</li>
+				<li class="menu-item">
+					<span class="text">
+						小菜 <i class="Online_icon">1</i>
+					</span>
+				</li>
+			</ul>
+		</div>
+		<div class="foods-wrapper">
+			<ul>
+				<li class="food-list food-list-hook">
+					<h1>alskdjf</h1>
+					<ul>
+						<li class="food-item">
+							<div class="icon">
+								<img width="52px" height="40px" src="./img/foods-icon.png">
+							</div>
+							<div class="content">
+								<h2>皮蛋瘦肉粥</h2>
+								<div class="price">
+									<span class="newPrice">
+										<span class="unit">￥</span>10
+									</span>
+								</div>
+								<!-- <div class="cartcontrol-wrapper">
+									<div class="cartcontrol">
+										<div class="cart-decrease">
+								          <span class="icon-remove_circle_outline inner"></span>
+								     	</div>
+								       <div class="cart-count" >1 </div>
+									    <div class="cart-add" >
+									      <i class="icon-add_circle"></i>
+									    </div>
+									</div>
+								</div> -->
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="shopCart">
+		<div class="Online_content">
+			<div class="Online_content-left">1</div>
+			<div class="Online_content-right">选好了</div>
+		</div>
+	</div>
+</div>
+	
+</template>
+<script>
+	
+</script>
+<style scoped>
+	.OnlineOrder{
+		position: relative;
+	}
+	.OnlineO_header{
+		position: absolute;
+		top: 0;
+	    left: 0;
+	    width: 100%;
+	}
+	.Online_goods{
+		display: -ms-flexbox;
+	    display: flex;
+	    position: absolute;
+	    top: 114px;
+	    bottom: 50px;
+	    width: 100%;
+	    overflow: hidden;
+	}
+	.menu-wrapper{
+	-ms-flex: 0 0 104px;
+    flex: 0 0 104px;
+    width: 104px;
+    background: #EAEAEA;
+    margin-top: 2px;
+	}
+.Online_goods .menu-item,.Online_goods .menu-item-selected{
+    position: relative;
+    display: table;
+    height: 54px;
+    line-height: 14px;
+    width: 90px;
+    padding: 0 7px;
+	}
+.Online_goods .menu-item-selected{
+	 background: #fff;
+	 margin-top: -1px;
+}
+.Online_goods .text{
+	display: table-cell;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: 200;
+    white-space: normal;
+    line-height: 14px;
+    border-bottom: 1px solid #B6B6B6;
+    position: relative;
+}
+.menu-item-selected .text{
+	border:none;
+	color:#325496;
+}
+.Online_icon{
+    position: absolute;
+    right: 8px;
+    top: 5px;
+    display: block;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    color: #fff;
+    background: red;
+    text-align: center;
+    line-height: 15px;
+    /* padding: 10px; */
+    font-size: 9px;
+}
+.Online_goods .foods-wrapper {
+    -ms-flex: 1;
+    flex: 1;
+    margin-top: 2px;
+}
+.Online_goods .foods-wrapper .food-list h1 {
+    height: 26px;
+    line-height: 26px;
+    padding-left: 12px;
+    font-size: 12px;
+    color: #325496;
+    background: #fff;
+    border-left: 2px solid #325496;
+    border-bottom:1px solid #FDFDFD;
+}
+.foods-wrapper .food-item{
+	position:relative;
+	display: flex;
+	display: -ms-flexbox;
+	margin:0 18px;
+	padding:18px 0;
+	 border-bottom: 1px solid rgba(7,17,27,0.1);
+}
+.Online_goods .foods-wrapper .food-item .icon {
+    -ms-flex: 0 0 57px;
+    flex: 0 0 57px;
+}
+.Online_goods .foods-wrapper .food-item .content {
+    -ms-flex: 1;
+    flex: 1;
+    padding-left: 10px;
+}
+.Online_goods .foods-wrapper .food-item .content h2 {
+    margin: 2px 0 8px 0;
+    font-size: 14px;
+    line-height: 14px;
+    height: 14px;
+    font-weight: 700;
+    color: #07111b;
+}
+.content .price {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 24px;
+}
+.newPrice{
+    font-size: 14px;
+    color: #f01414;
+}
+.unit{
+	    font-size: 10px;
+    font-weight: normal;
+}
+/*底部*/
+.shopCart {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 48px;
+    z-index: 50;
+}
+.Online_content {
+    display: -ms-flexbox;
+    display: flex;
+    background: #D8D8D8;
+}
+.Online_content-left{
+	-ms-flex: 1;
+    flex: 1;
+    height: 50px;
+}
+.Online_content-right{
+	    background: #416EC2;
+    color: #fff;
+        flex: 0 0 122px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 48px;
+    text-align: center;
+}
+/*加减号*/
+/*.cartcontrol-wrapper {
+    position: absolute;
+    right: 0;
+    bottom: 12px;
+    z-index: 20;
+}
+.cartcontrol .cart-decrease {
+    display: inline-block;
+    padding: 6px;
+    transition: all 0.4s linear;
+}
+ .inner {
+    line-height: 24px;
+    font-size: 24px;
+    color: #00a0dc;
+    transition: all 0.4s linear;
+    display: block;
+}
+.cart-count {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 10px;
+    color: #93999f;
+    line-height: 24px;
+    text-align: center;
+    padding: 6px 0;
+}
+.cart-add{
+	    display: inline-block;
+    vertical-align: top;
+    font-size: 24px;
+    color: #00a0dc;
+    line-height: 24px;
+    padding: 6px;
+}*/
+</style>

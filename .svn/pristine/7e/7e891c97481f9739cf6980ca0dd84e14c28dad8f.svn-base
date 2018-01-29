@@ -1,0 +1,38 @@
+<div class="toolbar">
+	<div class="EC_CP_header">
+		<div class="toolbar_lf" @click="isShowFn">
+			<span class="glyphicon glyphicon-menu-left"></span>
+		</div>
+		<div class="EC_CP_input1">
+			<input type="" placeholder="空气净化器" name=""> 
+			<img  src="../assets/img/ML_search.png" width="18px" height="18px">
+		</div>	
+	</div>
+	<ul class="suggest-container">
+		<li>
+			<h3 class="suggest_title">
+				<span>搜索记录:</span>
+				<img src="./img/delete.png" width="15px" height="15px;">
+			</h3>
+			<ul class="suggest-hotkey">
+				<li>
+					保暖内衣
+				</li><li>
+					保暖内衣
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<script>
+import qs from 'qs'
+import Vue from 'vue'
+import router from '@/router'
+	export default{
+		data(){
+			return {
+
+			}
+		}
+	}
+</script>

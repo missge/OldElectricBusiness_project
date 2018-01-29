@@ -1,0 +1,40 @@
+// store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+// 引入 axios
+import axios from 'axios'
+import router from '@/router'
+import qs from 'qs'
+import {setCookie,getCookie} from '../cookie/cookie.js'
+Vue.use(Vuex)
+var localhostStr='http://10.0.0.9:8080/wxmanage'
+
+const store = new Vuex.Store({
+	state:{
+		openId:getCookie('openId'),
+		merId:getCookie('merid'),
+		phoneId:getCookie('mobile'),
+		localHostUrl: localhostStr,
+		// 获取卡包
+		CardInfo:{
+			pramater:{openId:this.openId,mobile:this.mobile},
+			url:localhostStr+'/getCardInfo.json',
+			result:[]
+		}
+	},
+	actions: {
+		getCardInfo(context){
+	      axios.post(context.state.CardInfo.url,qs.stringify(context.state.CardInfo.pramater), {emulateJSON: true}).then(
+	        function (res) {
+	            if(res.data.ret){
+	            	console.log(res.data)
+	            }else{
+	              alert(res.data.ret)
+	            }
+	        })
+		}
+	}
+
+})
+export default store

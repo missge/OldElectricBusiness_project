@@ -1,0 +1,35 @@
+// store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+// 引入 axios
+import axios from 'axios'
+import router from '@/router'
+import qs from 'qs'
+
+Vue.use(Vuex)
+var localhostStr='http://10.0.0.223:8080/wxmanage/searckGoodsFamily.json'
+const store = new Vuex.Store({
+	state:{
+		localHostUrl: localhostStr,
+		test: {
+ 			pramater: {},
+ 			url:localhostStr
+		}
+	},
+	actions: {
+		testData(context){
+		      axios.post(context.state.test.url,qs.stringify(context.state.test.pramater), {emulateJSON: true}).then(
+		        function (res) {
+		            if(res.data.ret){
+		            	console.log(res.data)
+		            }else{
+		              alert(res.data.ret)
+		            }
+		        })
+
+		}
+	}
+
+})
+export default store

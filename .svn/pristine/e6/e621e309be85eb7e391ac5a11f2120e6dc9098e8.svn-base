@@ -1,0 +1,166 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
+import register from '@/components/register/register'
+import Home from '@/components/Home/Home'
+import OnlineOrder from '@/components/OnlineOrder/OnlineOrder'
+import PersonalCenter from '@/components/PersonalCenter/PersonalCenter'
+import OrderList from '@/components/OrderList/OrderList'
+import Orderdetail_pay  from '@/components/Orderdetail_pay/Orderdetail_pay'
+import Orderdetail_goods  from '@/components/Orderdetail_goods/Orderdetail_goods'
+import OrderedFoodList  from '@/components/OrderedFoodList/OrderedFoodList'
+import MealCard  from '@/components/MealCard/MealCard'
+import OrderedFoodSuccess  from '@/components/OrderedFoodSuccess/OrderedFoodSuccess'
+import ScenePay  from '@/components/ScenePay/ScenePay'
+import InformationModifine  from '@/components/InformationModifine/InformationModifine'
+import ChangePhone  from '@/components/InformationModifine/ChangePhone'
+import ChangeSex  from '@/components/InformationModifine/ChangeSex'
+import orderMessage  from '@/components/orderMessage/orderMessage'
+import noCard  from '@/components/noCard/noCard'
+import error  from '@/components/noCard/error'
+import test from '@/components/test'
+import MallList from '@/Ecommerce/MallList'
+import RefundType from '@/Ecommerce/RefundType'
+import DetailsPage from '@/Ecommerce/DetailsPage'
+import CategoryPage from '@/Ecommerce/CategoryPage'
+import ShoppingCard from '@/Ecommerce/ShoppingCard'
+import Physicalorder from '@/Ecommerce/Physicalorder'
+import RefundOrder from '@/Ecommerce/RefundOrder'
+import ApplyforRefund from '@/Ecommerce/ApplyforRefund'
+import image_file from '@/Ecommerce/image_file'
+import GoodsReturn from '@/Ecommerce/GoodsReturn'
+import SelectAddress from '@/Ecommerce/SelectAddress'
+import DeliveryAddress from '@/Ecommerce/DeliveryAddress'
+import AddAdress from '@/Ecommerce/AddAdress'
+import EPaySuccess from '@/Ecommerce/EPaySuccess'
+// import Ehome from '@/Ecommerce/Ehome'
+import AddReturn from '@/Ecommerce/AddReturn'
+
+
+Vue.use(Router)
+
+const router =  new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'register',
+      component: register
+    },
+    {
+      path: '/Home',
+      component: Home
+    },
+     {
+      path: '/OnlineOrder',
+      component: OnlineOrder
+    },
+     {
+      path: '/test',
+      component: test
+    },
+     {
+      path: '/PersonalCenter',
+      component: PersonalCenter
+    },
+     {
+      path: '/OrderList',
+      component: OrderList
+    },
+     {
+      path: '/Orderdetail_pay',
+      component: Orderdetail_pay
+    },
+     {
+      path: '/Orderdetail_goods',
+      component: Orderdetail_goods
+    },
+     {
+      path: '/MealCard',
+      component: MealCard
+    },
+     {
+      path: '/OrderedFoodList',
+      component: OrderedFoodList
+    },
+     {
+      path: '/OrderedFoodSuccess',
+      component: OrderedFoodSuccess
+    },
+     {
+      path: '/ScenePay',
+      component: ScenePay
+    },
+     {
+      path: '/InformationModifine',
+      component: InformationModifine
+    },
+     {
+      path: '/ChangePhone',
+      component: ChangePhone
+    },
+     {
+      path: '/ChangeSex',
+      component: ChangeSex
+    },
+     {
+      path: '/orderMessage',
+      component: orderMessage
+    },
+     {
+      path: '/noCard',
+      component: noCard
+    },
+     {
+      path: '/error',
+      component: error
+    },
+     {
+      path: '/RefundType',
+      component: RefundType
+    },
+     {
+      path: '/DetailsPage',
+      component: DetailsPage
+    },{
+      path: '/CategoryPage',
+      component: CategoryPage
+    },{
+      path: '/ShoppingCard',
+      component: ShoppingCard
+    },{
+      path: '/Physicalorder',
+      component: Physicalorder
+    },{
+      path: '/RefundOrder',
+      component: RefundOrder
+    },{
+      path: '/ApplyforRefund',
+      component: ApplyforRefund
+    },{
+      path: '/image_file',
+      component: image_file
+    },{
+      path: '/GoodsReturn',
+      component: GoodsReturn
+    },{
+      path: '/SelectAddress',
+      component: SelectAddress
+    },{
+      path: '/DeliveryAddress',
+      component: DeliveryAddress
+    },{
+      path: '/AddAdress',
+      component: AddAdress
+    },{
+      path: '/EPaySuccess',
+      component: EPaySuccess
+    },{
+      path: '/AddReturn',
+      component: AddReturn
+    },{
+      path: '/MallList',
+      component: MallList
+    }
+  ]
+})
+export default router

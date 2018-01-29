@@ -1,0 +1,253 @@
+<template>
+	<div class="Orderdetail_goods">
+		<div class="ODG_title" v-show="datalist.status == 1">待收货</div>
+			<div class="ODG_title" v-show="datalist.status == 6">已收货</div>
+		<div class="ODG_content" >
+			<div class="ODP_header">
+				<img v-show="datalist.status == 6"  src="./img/pay_ok.png" width="100px" height="100px">
+				<p v-show="datalist.status == 6" class="ODP_title">已取餐</p>
+				<div class="ODP_code_content" v-show="datalist.status == 1 " >
+					<div class="ODP_code">
+						<!-- <img src="./img/code.png" width="115px" height="115px"> -->
+						<canvas class="opcs-qrcode-content" id="qrcode"></canvas>
+					</div>
+					<div class="ODP_code_title">
+						支付成功
+					</div>
+					<div class="ODP_code_prompt">
+						请于x月x日持二维码到餐厅扫码取餐
+					</div>
+				</div>
+				<div class="pub_messge">
+					<p class="width_auto"><i></i>订单留言:{{datalist.orderMsg}}</p>
+				</div>
+			</div>
+		  	<div class="OL_tabone">
+		  		<ul>
+		  			<li class="mar_top">
+		  				<div class="OL_title title_bor">
+		  					<p class="lf"><i></i>{{datalist.merchantName}}</p>
+		  				</div>
+		  				<ul>
+		  					<li class="OL_fooditem title_bor" v-for="(items,index) in datalist.orderGoodsRelList"> 
+		  						<div class="OL_fooditem_lf">
+		  							<img  :src="items.goodphoto" width="80px" height="50px">
+		  						</div>
+		  						<div class="OL_foodltem_rt">
+		  							<span >{{items.goodsName}}</span>
+		  							<span>￥{{items.price}}*{{items.qty}}件</span>
+		  						</div>
+		  					</li>
+		  				</ul>
+
+		  				<div class="mar_top_bot title_bor">
+		  					<div class="mar_top_botrt">
+		  						<span class="btn_blue">发表评论</span>
+		  						<span class="btn_gray" @click="returnFoods">申请退款</span>
+		  					</div>
+		  				</div>
+		  			</li>
+		  		</ul>
+		  	</div>
+		  	<ul class="ODG_list">
+				<li>
+					<mt-cell title="商品总价" >
+						<span>{{datalist.orderAmt}}</span>
+					</mt-cell>
+				</li>
+				<li>
+					<mt-cell title="运费" value="-￥0.00"></mt-cell>
+				</li>
+				<li>
+					<mt-cell title="优惠抵扣" value="-￥0.00"></mt-cell>
+				</li>
+				<li>
+					<mt-cell title="参与的活动" ></mt-cell>
+				</li>
+				<li class="ODG_payment">
+					<div >实付款: <span class="blue_font">￥{{datalist.payAmt}}</span> </div>
+				</li>
+			</ul>
+			<div class="ODG_footer">
+				<p>订单号：{{datalist.orderId}}</p>
+				<p>下单时间：2017年9月22日 13:09:11</p>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+import {setCookie,getCookie} from '../../cookie/cookie.js'
+var JsBarcode = require('jsbarcode')
+import qs from 'qs'
+import Vue from 'vue'
+import QRCode from 'qrcode'
+Vue.use(QRCode)
+import router from '@/router'
+export default{
+	name:'Orderdeail_goods',
+	data(){
+		return {
+      		datalist:[],
+      		OrderInfo :{
+	 			mobile:getCookie('mobile'),
+	 			openId:getCookie('openId'),
+      			orderId:this.$route.query.orderId,
+      			inStatus:'',
+      		}
+		}
+	},
+	methods:{
+		utf16to8(str) {
+	        var out, i, len, c;
+	        out = "";
+	        len = str.length;
+	        for(i = 0; i < len; i++) {
+	          c = str.charCodeAt(i);
+	          if ((c >= 0x0001) && (c <= 0x007F)) {
+	              out += str.charAt(i);
+	          } else if (c > 0x07FF) {
+	              out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+	              out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));
+	              out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));
+	          } else {
+	              out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));
+	              out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));
+	          }
+	        }
+	        return out;
+     	},
+       	useqrcode(){
+	        var str = this.OrderInfo.orderId
+	 	 	var qrcode = document.getElementById('qrcode')
+	        // var url = encodeURI('http://wcy.dealreal.com.cn/goInitPage.json?mallId='+this.OrderInfo.orderId)
+	        var url = encodeURI('http://www.baidu.com')
+	    
+	        console.log(url)
+	        QRCode.toCanvas(
+	          qrcode, url,
+	          function (error) {
+	            if (error) {
+	              console.error(error)
+	            }else{
+	              console.log('success!');
+	            }
+	          }
+	        )
+      	},
+      	// 查看订单信息
+      	searchOrder(){
+      		var url = this.$store.state.localHostUrl +'/searchOrderInfo.json'
+      		var data= qs.stringify(this.OrderInfo)
+      		var that = this
+      		that.$http.post(url,data,{emulateJSON:true}).then(
+      			function (res){
+      				if(!res.data.ret){
+      					console.log(res.data.data)		
+      					that.datalist=res.data.data[0]	
+      				}
+					else{
+						alert(res.data.descript)
+					}
+      			}
+      		)
+      	},
+      	returnFoods(){
+  			var url = this.$store.state.localHostUrl +'/returnFoods.json'
+      		var data= qs.stringify(this.OrderInfo)
+      		var that = this
+      		that.$http.post(url,data,{emulateJSON:true}).then(
+      			function (res){
+      				if(!res.data.ret){
+      					console.log(res.data)		
+      					alert("申请退货成功，请等待商家确认")
+      				}
+					else{
+						alert(res.data.descript)
+					}
+      			}
+      		)
+
+      	}
+	},
+	mounted(){
+      this.useqrcode();
+      this.searchOrder()
+    }
+}
+</script>
+<style >
+
+.ODG_list span{
+	    font-size: 12px;
+    line-height: 32px;
+}
+.ODG_list .mint-cell{
+	height: 32px;
+	line-height: 32px;
+}
+.ODG_list .mint-cell-wrapper:first-child{
+	border:none;
+}
+.ODG_list .mint-cell-wrapper{
+	border-top:1px solid #ddd;
+}
+.ODG_list .mint-cell-text{
+	color:#000000;
+}
+.ODG_list .mint-cell-value span{
+	color:#000000;
+	 font-weight: bold;
+} 
+.ODG_footer{
+	font-size: 12px;
+	width: 96%;
+	margin:15px auto;
+
+}
+.ODG_footer>p{
+	color:#959595;
+	height: 18px;
+	line-height: 18px;
+}
+.ODG_payment{
+	background: #fff;
+	width: 98%;
+	margin:0 auto;
+	text-align: right;
+	 
+}
+.ODG_payment>div{
+	border-top:1px solid #ddd;
+	   padding-right:  10px;
+	   font-weight: bold;
+
+}
+
+
+.ODP_code_content{
+	padding: 10px 0;
+}
+.ODP_code{
+	justify-content: center;
+}
+.ODP_code_title{
+	color: #0858AE;
+	padding: 10px 0;
+	font-size: 15px;
+	font-weight: bold;
+}
+.ODP_code_prompt{
+	font-size: 11px;
+	color:#434343;
+	text-align: center;
+}
+  .opcs-barcode-content{
+    padding: 0 1rem;
+    width: 100% !important
+  }
+
+  .opcs-qrcode-content{
+    width:60% !important;
+    height:60% !important;
+  }
+</style>

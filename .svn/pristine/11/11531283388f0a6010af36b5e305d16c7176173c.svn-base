@@ -1,0 +1,22 @@
+<template>
+	<div id="home">
+		<div class="home_bg">
+		 </div>
+	</div>
+</template>
+<script>
+export default{
+	 name: 'home'
+
+}
+</script>
+<style scoped>
+.home_bg{
+	position: absolute;
+	background: #ddd;
+	top:0;
+	bottom:0;
+	width: 100%;
+}
+
+</style>

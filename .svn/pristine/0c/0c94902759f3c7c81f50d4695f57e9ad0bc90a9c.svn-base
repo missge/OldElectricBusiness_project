@@ -1,0 +1,177 @@
+<template>
+	<div >
+		<div class="MallList" :class="{'shows':isShows}">
+			<div class="ML_header">
+				<div class="ML_header_con">
+					<div class="ML_header_contop">
+						<div class="ML_home">
+							<img width="25px" class="ML_icon1" height="20px" src="./img/ML_icon1.png">
+							<img width="22px" class="ML_icon2" height="22px" src="./img/ML_icon2.png">
+						</div>
+						<div class="ML_input">
+							<input type="" v-model="OrderInfo.goodsName" @focus="isShowFn()" placeholder="" name="">
+							<i class="ML_search"></i>
+						</div>
+						<div class="ML_icon3">
+							<img src="./img/ML_icon3.png" width="23px" height="23px">
+						</div>
+					</div>
+					<ul class="ML_header_conbot">
+						<li >
+							新上架
+						</li>
+						<li class="icon_bor">
+							价格最低
+							<span class="glyphicon glyphicon-triangle-bottom "> </span>
+
+						</li>
+						<li>
+							价格最高
+							<span class="glyphicon glyphicon-triangle-top "> </span>
+						</li>
+					</ul>
+				</div>
+				<div class="ML_header_bg">
+					<!-- <img src="./img/ML_bg.png" width="100%" height="100%"> -->
+				</div>
+			</div>
+			<div class="ML_content">
+				<div class="ML_content_box">
+					<div class="container">
+						<div class="row" >
+							<div class="col-xs-6" v-for="(item,index) in datalist">
+								<div class="ML_con_box" @click="GoDetaileFn(item.goodsId)">
+									<div class="ML_con_box_img">
+										<!-- <img src="./img/goods.png"  width="100%" height="100%"> -->
+										<img :src="item.photoUrl"  width="100%" height="100%">
+
+									</div>
+									<p class="ML_description">{{item.goodsName}}</p>
+									<p class="ML_money"><img  class="ML_money_icon" src="./img/ml.png" width="7px" height="8px">{{item.rate}}</p>
+								</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="ML_load">点击加载更多...</div>
+			</div>
+		</div>
+		<search  :class="{'shows':!isShows}" @getIsShow="SetisShow" ></search>
+	</div>
+</template>
+<script>
+import Search from './Search'
+import {setCookie,getCookie} from '../cookie/cookie.js'
+import qs from 'qs'
+import Vue from 'vue'
+import router from '@/router'
+export default{
+	name:'MallList',
+	components:{
+		Search
+	},
+	data(){  
+		return {
+			datalist:[],
+      		OrderInfo :{
+	 			mallId:getCookie('mallId'),
+	 			familyId:'',
+	 			goodsName:'',
+	 			openId:getCookie('openId'),
+	 			mobile:getCookie('mobile')
+
+      		},
+      		searchFlag:'',
+      		isShows:false
+		}
+	},
+    methods:{
+    	SetisShow(data){
+    		this.isShows = data;
+    	},
+		isShowFn(){
+        	this.isShows=!this.isShows;
+        },
+    	dataLoad(){
+    		this.searchFlag=this.$route.query.searchFlag
+    		console.log(this.searchFlag)
+    	
+    		if(this.searchFlag==1){
+    			var url = this.$store.state.localHostUrl +'/searchMallGoodsName.json'
+				this.OrderInfo.goodsName=this.$route.query.goodsName
+    		}else if(this.searchFlag==0){
+    			var url = this.$store.state.localHostUrl +'/searchMallGoodsInfo.json'
+    			this.OrderInfo.familyId=this.$route.query.familyId
+    				this.OrderInfo.goodsName=''
+    		}
+
+			var data= qs.stringify(this.OrderInfo)
+			var that = this
+			that.$http.post(url,data,{emulateJSON:true}).then(
+	      		function (res){
+  					console.log(res.data)
+      				if(!res.data.ret){
+      					that.datalist=res.data.data
+      				}
+					else{
+						alert(res.data.descript)
+					}
+	      		}
+	      	)
+	    },
+	    GoDetaileFn(g){
+	    	console.log(g)
+	    	this.$router.push({path:'/DetailsPage',query:{goodsId:g}})
+	    	
+	    }
+    },
+    watch:{
+        'OrderInfo.goodsName':function () {
+            this.dataLoad();
+        }
+    },
+    mounted(){  
+      this.dataLoad();
+    },
+   
+	}
+</script>
+<style>
+.ML_header{position: relative;}
+.ML_header_con{position: relative;z-index: 1;} 
+.ML_header_bg{position: absolute;width: 100%;height:100%;top:0;left: 0;background: #F79E20;} 
+.ML_icon2{margin-right: 10px; vertical-align: bottom;}
+.ML_header_contop{    padding: 10px 11px 20px 11px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 30px;} 
+.ML_home{margin-top:3px;}
+.ML_icon3{position: absolute;right: 10px;vertical-align: middle;    margin-top: 3px;}
+.ML_header_conbot{display: flex;}
+.ML_header_conbot>li{flex:1;text-align: center;font-size:0.75rem;color:#FFFFFF;height: 25px;}
+.icon_bor{	border-bottom:3px solid #f9dd99;color:#90B9E0;}
+.ML_header_conbot .glyphicon{font-size:10px;color:#EBEBEB;}
+.icon_bor>.ML_header_conbot{color:#BFDBF7}
+.ML_content{position: absolute;	top:88px;	bottom:0;	background: #F4F4F6;	width: 100%;}
+/*.ML_content .container{width:95%;margin:0 auto;}*/
+.ML_content_box{padding: 7px 0;}
+/*.ML_con_box{padding:10px;}*/
+.ML_content .container{    box-sizing: border-box; overflow: hidden; margin-right: auto; margin-left: auto; padding-left:0rem;padding-right: 0rem; }
+.ML_content .row {   box-sizing: border-box;}
+.ML_content .col-xs-6{ padding-left: 6px;  padding-right: 6px;margin-bottom:6px;    box-sizing: border-box;}
+/*.ML_content .col-xs-6:first-child{ padding-right: 0px;}*/
+.ML_description{font-size:0.75rem ;color:#000000;padding: 6px 4px 10px 6px;}
+.ML_money{padding-bottom:8px;font-size:0.7rem ;color:#ff3000;padding-left: 6px;font-weight: bold;}
+.ML_money_icon{vertical-align: middle;margin-right: 2px;}
+.ML_con_box_img{
+	/*width: 150px;*/
+	margin:0 auto;
+    height: 150px;
+    padding: 5px;
+    box-sizing: border-box;}
+.ML_con_box{background: #fff;}
+.ML_load{    text-align: center;
+    color: #959595;
+    font-size: 0.65rem;}
+</style>

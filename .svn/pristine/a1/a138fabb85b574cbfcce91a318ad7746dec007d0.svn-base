@@ -1,0 +1,49 @@
+<template>
+	<div >
+		<div class="footer_bot">
+			<mt-tabbar>
+				<mt-tab-item id="tab1" >
+					<div  @click="goPage('Ehome')">
+						<span class="icon1"></span>
+						<p class="icon_font">首页</p>
+					</div>
+					
+				</mt-tab-item>
+				<mt-tab-item id="tab2">
+					<div  @click="goPage('PersonalCenter')">
+						<span class="icon2"></span>
+						<p class="icon_font" >分类</p>
+					</div>
+				</mt-tab-item>
+				<mt-tab-item id="tab3" >
+					<div  @click="goPage('ShoppingCard')">
+						<span class="icon3"></span>
+						<p class="icon_font">购物车</p>
+					</div>
+				</mt-tab-item>
+				<mt-tab-item id="tab4" >
+					<div @click="goPage('')">
+						<span class="icon4"></span>
+						<p  class="icon_font">我的</p>
+					</div>
+				</mt-tab-item>
+			</mt-tabbar>
+		</div>
+	</div>
+	</div>
+</template>
+<style>
+.footer_bot{position: fixed;bottom:0;width: 100%;}
+.icon1,.icon2,.icon3,.icon4{
+	display:inline-block;width: 27px;height: 20px;
+}
+.icon_font{
+	font-size: 0.75rem;
+}
+.icon1{background: url(./img/Hicon1.png) no-repeat center center;background-size: 50%;}
+.icon2{background: url(./img/Hicon2.png) no-repeat center center;background-size: 50%;}
+.icon3{background: url(./img/Hicon3.png) no-repeat center center;background-size: 50%;}
+.icon4{background: url(./img/Hicon4.png) no-repeat center center;background-size: 50%;}
+
+
+</style>

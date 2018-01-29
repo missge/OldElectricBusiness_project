@@ -1,0 +1,79 @@
+<template>
+	<div class="Orderdetail_pay">
+		<div class="ODP_header">
+			<img v-show="flag" src="./img/pay_icon.png" width="100px" height="100px">
+			<p v-show="flag" class="ODP_title">已支付</p>
+			<img v-show="!flag" src="./img/pay_ok.png" width="100px" height="100px">
+			<p v-show="!flag" class="ODP_title">已取餐</p>
+			
+		</div>
+		<div class="ODP_content" >
+		  	<div class="OL_tabone">
+	  			<div class="mar_top">
+	  				<div class="OL_title title_bor">
+	  					<p class="lf"><i></i>电控所江浦路餐厅</p>
+	  				</div>
+	  				<ul>
+	  					<li class="OL_fooditem title_bor"> 
+	  						<div class="OL_fooditem_lf">
+	  							<img  src="./img/food_icon.png" width="80px" height="50px">
+	  						</div>
+	  						<div class="OL_foodltem_rt">
+	  							<span >宫保鸡丁</span>
+	  							<span>￥12.00*<span class="blue_font">1件</span></span>
+	  						</div>
+	  					</li>
+	  				</ul>
+	  				<div class="ODP_Message">
+	  					<p class="width_auto"><i></i>订单留言:不要香菜</p>
+	  				</div>
+  					
+	  			</div>
+	  			<div class="wide_btn_blue">
+						确认取餐
+				</div>
+		  	</div>
+		</div>
+
+	</div>
+</template>
+<script>
+import {setCookie,getCookie} from '../../cookie/cookie.js'
+import router from '@/router'
+import qs from 'qs'
+	export default{
+		name:'Orderdetail_pay',
+		data(){
+			return {
+				flag:1,
+				GetFoods:{
+					orderId:'1000000004000002',
+					openId:getCookie('openId'),
+					mobile:getCookie('mobile')
+				}
+			}
+		},
+		methods:{
+			request(){
+				var url = this.$store.state.localHostUrl+'/confirmGetFoods.json'  
+				this.$http.post(url,qs.stringify(this.GetFoods),{emulateJSON:true}).then(
+					function(res){
+						if(!res.data.ret){
+							console.log(res.data)
+						}else{
+						}
+					}
+				)
+			}
+		},
+		mounted (){
+			this.request()
+		}
+
+	}
+</script>
+<style scoped>
+	.OL_tabone .wide_btn_blue{
+		margin-top: 20px;
+	}
+</style>

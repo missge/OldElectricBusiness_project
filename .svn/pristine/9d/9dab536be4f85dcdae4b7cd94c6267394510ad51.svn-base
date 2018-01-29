@@ -1,0 +1,76 @@
+<template>
+	<div class="footer_bot">
+		<mt-tabbar>
+			<mt-tab-item id="tab1" >
+				<div  @click="goPage('Ehome')" :class="{'on': clicked === 'Ehome' }" >
+					<span class="icon1" ></span>
+					<p class="icon_font">首页</p>
+				</div>
+				
+			</mt-tab-item>
+			<mt-tab-item id="tab2" >
+				<div  @click="goPage('CategoryPage')" :class="{'on': clicked === 'CategoryPage' }">
+					<span class="icon2" ></span>
+					<p class="icon_font" >分类</p>
+				</div>
+			</mt-tab-item>
+			<mt-tab-item id="tab3" >
+				<div  @click="goPage('ShoppingCard')"  :class="{'on': clicked === 'ShoppingCard' }">
+					<span class="icon3" ></span>
+					<p class="icon_font">购物车</p>
+				</div>
+			</mt-tab-item>
+			<mt-tab-item id="tab4" >
+				<div @click="goPage('PersonalCenter')" :class="{'on': clicked === 'PersonalCenter' }">
+					<span class="icon4" ></span>
+					<p  class="icon_font">我的</p>
+				</div>
+			</mt-tab-item>
+		</mt-tabbar>
+	</div>
+</template>
+<script>
+import router from '@/router'
+import {setCookie,getCookie} from '../cookie/cookie.js'
+
+import qs from 'qs'
+import Vue from 'vue'
+	export default{
+		name:'footer',
+		data(){
+			return {
+				clicked:'',
+         		getUrl:getCookie('getUrl')
+
+			}
+		},
+		methods:{
+			goPage(Gopage){
+				 this.clicked = Gopage
+				if(Gopage=='PersonalCenter'){
+					window.location.href=this.getUrl
+				}else{
+					this.$router.push({path:'/'+Gopage})
+				}
+			}
+		}
+	}
+</script>
+<style>
+.footer_bot{position: fixed;bottom:-1px;width: 100%;}
+.icon1,.icon2,.icon3,.icon4{
+	display:inline-block;width: 27px;height: 20px;
+}
+.icon_font{
+	font-size: 0.75rem;
+}
+.icon1{background: url(./img/Hicon1.png) no-repeat center center;background-size: 50%;}
+.icon2{background: url(./img/Hicon2.png) no-repeat center center;background-size: 50%;}
+.icon3{background: url(./img/Hicon3.png) no-repeat center center;background-size: 50%;}
+.icon4{background: url(./img/Hicon4.png) no-repeat center center;background-size: 50%;}
+.on .icon1{background: url(./img/Hicon1_on.png) no-repeat center center;background-size: 50%;}
+.on .icon2{background: url(./img/Hicon2_on.png) no-repeat center center;background-size: 50%;}
+.on .icon3{background: url(./img/Hicon3_on.png) no-repeat center center;background-size: 50%;}
+.on .icon4{background: url(./img/Hicon4_on.png) no-repeat center center;background-size: 50%;}
+.on{color:#F79E20;}
+</style>

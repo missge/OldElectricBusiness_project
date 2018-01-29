@@ -1,0 +1,40 @@
+<template>
+	<div class="OrderedFoodList">
+		<div class="OrderedFoodList_top">
+			<div class="OFl_header" @click="SelectAddressFn">
+				<p>
+					<b>小黑人儿</b>
+					<span>131099918</span>
+				</p>
+				<div class="OFl_address">
+					<span>
+						上海上海市浦东区实际达到2号国际贸易中心A左1201（送货前打电话）
+					</span>	
+					<span class="jt_bg">
+						<img src="./img/jt_icon.png" width="10px" height="20px">
+					</span>
+				</div>
+			</div>
+		 
+		</div>
+	</div>
+
+</template>
+<script>
+import Vue from 'vue'
+import qs from 'qs'
+import {setCookie,getCookie} from '../cookie/cookie.js'
+import router from '@/router'
+import { Indicator } from 'mint-ui';
+export default{
+	name:'OrderedFoodList',
+	methods:{
+		SelectAddressFn(){
+			this.$router.push({path:'/SelectAddress'})
+		}
+	}
+}
+</script>
+<style>
+	
+</style>

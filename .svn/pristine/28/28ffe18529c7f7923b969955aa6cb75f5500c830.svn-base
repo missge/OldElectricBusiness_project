@@ -1,0 +1,157 @@
+<template>
+	<div class="Ehome" >
+		<div class="Ehome_toolbar margin_bot" >
+			<div class="toolbar_search">
+				<input type="" name="" >
+				<span class="glyphicon glyphicon-search"> 搜索 </span>
+			</div>
+		</div>
+		<ul>
+			<li  v-for="items in dataList">
+				<div class="Ehome_swiper margin_bot" v-if="items.picType==0">
+					<mt-swipe :show-indicators="false">
+					  <mt-swipe-item >
+							1
+					  </mt-swipe-item>
+					</mt-swipe>
+				</div>
+				
+				<div class="Ehome_navbar margin_bot" v-if="items.picType==4">
+					<ul class="flex">
+						<li>
+							<img src="./home/7.png" class="img-responsive">
+						</li>
+						<li>
+							<img src="./home/7.png" class="img-responsive">
+						</li>
+						<li>
+							<img src="./home/7.png"class="img-responsive">
+						</li>
+						<li>
+							<img src="./home/7.png" class="img-responsive">
+						</li>
+						<li>
+							<img src="./home/7.png" class="img-responsive">
+						</li>
+					</ul>
+				</div>
+				<div class="Ehome_oneimg margin_bot" v-if="items.picType==1">
+				{{items.weChatPages[0].picUrl}}
+					<img src="./home/66.png" class="img-responsive" width="100%" >
+			
+				</div>
+				<ul class="Ehome_Twoimg flex margin_bot" v-if="items.picType==2">
+					<li class="flex-center">
+						<img src="./home/22.png" class="img-responsive">
+					</li>
+					<li class="flex-center">
+						<img src="./home/22.png" class="img-responsive">
+					</li>
+				</ul>
+				<ul class="Ehome_Threeimg flex"  v-if="items.picType==3">
+					<li class="flex-center">
+						<img src="./home/2.png" class="img-responsive">
+					</li>
+					<li class="flex-center">
+						<img src="./home/2.png" class="img-responsive">
+					</li>
+					<li class="flex-center">
+						<img src="./home/2.png" class="img-responsive">
+					</li>
+				</ul>
+				<div class="Ehome_fourimg flex"  v-if="items.picType==5">
+					<div class="Ehome_four_lf flex-center"> 
+						<img src="./home/2.png" class="img-responsive">
+					</div>
+					<ul class="Ehome_four_rt flex-center"> 
+						<li>
+							<img src="./home/11.png" class="img-responsive">
+						</li>
+						<li>
+							<ul class="Ehome_four_bottom flex">
+								<li>
+									<img src="./home/111.png" class="img-responsive">
+								</li>
+								<li>
+									<img src="./home/111.png" class="img-responsive">
+									
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		
+	</div>
+</template>
+<script>
+import {setCookie,getCookie} from './../cookie/cookie.js'
+import router from '@/router'
+import qs from 'qs'
+import Vue from 'vue'
+export default{
+	name:'Ehome',
+	data(){
+		return {
+			i:100,
+			dataList:[],
+			dataInfo:{
+				mobile:getCookie('mobile'),
+	 			openId:getCookie('openId'),
+	 			mallId:getCookie('mallId')
+			}
+		}
+	},
+	methods:{
+		searchInfo(){
+			var url = this.$store.state.localHostUrl +'/goHomePage.json'
+      		var data= qs.stringify(this.dataInfo)
+      		var that = this
+      		that.$http.post(url,data,{emulateJSON:true}).then(
+      			function (res){
+      				if(res.data.ret==0){
+      					that.dataList=res.data.data
+						console.log(res.data.data)
+      				}
+					else{
+						alert(res.data.descript)
+
+					}
+      			}
+      		)
+		}
+	},
+	mounted(){
+		this.searchInfo()
+	}
+
+}
+</script>
+<style>
+	.Ehome_toolbar{background: #F79E20;}
+	.toolbar_search{width: 80%;margin:0 auto;position: relative;padding:12px 0;}
+	.toolbar_search>input{height: 30px;line-height: 30px; text-align: center;width: 100%;border-radius: 10px;}
+	.toolbar_search .glyphicon-search{position:absolute;transform: translateX(-50%) translateY(-50%);left: 50%; top:50%;color:#A2A2A2;font-size: 0.5rem;line-height: 30px;}
+	.margin_bot{margin-bottom:5px;}
+	.Ehome_swiper{height:145px;width: 100%; max-height: 145px;}
+	.Ehome_navbar{background: #fff;}
+	.Ehome_navbar .flex {    display: flex;  flex-direction: row;  flex-wrap: wrap;text-align: center;padding-bottom:20px;}
+	.Ehome_navbar .flex li{width: 25%; box-sizing: border-box;}
+	.Ehome_navbar .flex li img{padding: 20px 20px 0 20px; margin:0 auto;}
+	.Ehome_oneimg{ }
+	.img-responsive {
+	  display: block;
+	  height: auto;
+	  width: 100%;box-sizing: border-box;
+	}
+	.Ehome_Twoimg li{width: 50%;}
+	.Ehome_Twoimg li:first-child{padding-right: 5px;}
+	.Ehome_Threeimg li{padding-right: 5px;}
+	.Ehome_Threeimg li:last-child{padding-right: 0;}
+	.Ehome_four_lf{padding-right: 5px;flex:0.8;}
+	.Ehome_four_rt{flex:1.1}
+	.Ehome_four_rt li:first-child{padding-bottom:5px;}
+	.Ehome_four_rt>li{width: 100%;    height: 50%;}
+	.Ehome_four_bottom li:first-child{margin-right: 1px;}
+</style>

@@ -1,0 +1,96 @@
+<template>
+	<div class="EC_categoryPage">
+		<div class="toolbar">
+			<div class="EC_CP_header">
+				<div class="EC_CP_input">
+					<input type="" placeholder="空气净化器" name=""> 
+					<img  src="../assets/img/ML_search.png" width="18px" height="18px">
+				</div>	
+			</div>
+			<ul class="suggest-container">
+				<li>
+					<h3 class="suggest_title">
+						<span>搜索记录:</span>
+						<img src="./img/delete.png" width="15px" height="15px;">
+					</h3>
+					<ul class="suggest-hotkey">
+						<li>
+							保暖内衣
+						</li><li>
+							保暖内衣
+						</li>
+					</ul>
+
+				</li>
+				<li>
+					<h3 class="suggest_title">
+						<span >热搜:</span>
+					</h3>
+					<ul class="suggest-hotkey oregen_font">
+						<li>
+							保暖内衣
+						</li><li>
+							保暖内衣
+						</li>
+					</ul>
+					
+				</li>
+			</ul>
+		</div>
+	<!-- 	<div class="EC_CP_goods">
+			<div class="Online_goods">
+				<div class="menu-wrapper">
+					<ul class="EC_CP_menu_lf">
+						<li class="EC_CP_selected">
+							家居家纺
+						</li>
+						<li>
+							伏虎清洁
+						</li>
+					</ul>
+				</div>
+				<div class="foods-wrapper EC_CP_wrapper">
+					<ul>
+						<li>
+							<div class="EC_CP_content">
+								<img src="./img/goods1.png">
+								<p>大米</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div> -->
+	</div>
+</template>
+<script>
+export default{
+	name:'CategoryPage'
+}
+</script>
+<style>
+	.EC_CP_header{background: #f79e20;text-align: center;  height: 47px;}
+	.EC_CP_header>.EC_CP_input{padding-top:5px;height: 30px;line-height: 30px;width:90%;margin:0 auto;position: relative;}
+	.EC_CP_input>input{width: 100%;border-radius: 10px;height:30px;font-size: 0.6rem;box-sizing: border-box;padding-left: 10px;}
+	.EC_CP_input >img{position: absolute;     right: 8px;  top: 13px;}
+	.EC_CP_goods>.Online_goods{    top: 46px;bottom:0;}
+	.EC_CP_goods .menu-wrapper{background: #f7f7f7;}
+	.EC_CP_menu_lf li{height: 38px;text-align: center; font-size: 0.75rem;line-height: 38px;}
+	.EC_CP_selected{color:#F08632;background: #fff;}
+	.EC_CP_wrapper li{overflow: hidden;width: 95%;margin:0 auto;}
+	.EC_CP_content{float: left;width: 33.333%;text-align: center;margin-top:20px;}
+	.EC_CP_content>img{max-width: 55px;}
+	.EC_CP_content p{text-align: center;margin-top: 8px;font-size: 0.55rem;}
+		.suggest-container{width: 100%;background: #fff;}
+	.suggest-container li{width: 90%;margin:0 auto;padding-top:20px;}
+	.suggest_title{overflow: hidden;}
+
+	.suggest_title>span{color:#F08632;font-size: 0.7rem;float: left;}
+	.suggest_title>img{float: right;}
+	.suggest-hotkey{margin:10px 0;}
+	.suggest-hotkey li{font-size: 0.55rem; width: inherit;height: 30px;line-height: 30px; background: #f4f3f3;   border-radius: 14px;   padding: 0 15px;border: 1px solid #dedede;display: inline-block;
+		margin-right:9px;
+    margin-bottom: 9px;
+	}
+.oregen_font li{border:1px solid #F79E20;color:#F79E20; background: #fff}
+</style>

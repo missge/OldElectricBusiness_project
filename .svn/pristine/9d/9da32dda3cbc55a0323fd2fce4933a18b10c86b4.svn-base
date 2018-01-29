@@ -1,0 +1,104 @@
+<template>
+	<div class="RetundGoods">
+		<ul class="IM_list">
+			<li>
+				<mt-cell title="物流公司"  is-link>
+					<span class="IM_header1 blank_font">
+						韵达快递
+					</span>
+				</mt-cell>
+			</li>
+			<li>
+				<mt-field label="运单号"
+				 class="RG_placeholder" placeholder="" type="tel" v-model="WaybillInfo.waybail"> 
+				</mt-field>
+			
+			</li>
+			
+		</ul>
+		<div class="wide_btn_blue" @click="submitWayBill">
+			确定提交
+		</div>
+		</div>
+	</div>
+</template>
+<script>
+	import {setCookie,getCookie} from './../cookie/cookie.js'
+	import qs from 'qs'
+	import Vue from 'vue'
+	import router from '@/router'
+	export default{
+		name:'AddReturn',
+			data(){
+				return{
+					WaybillInfo :{
+			 			mobile:getCookie('mobile'),
+						openId:getCookie('openId'),
+		      			waybail:'',
+		      			refId:this.$route.query.refId,
+		      		},
+		    
+
+		      	}
+
+			},
+			methods:{
+				submitWayBill(){
+					var waybillReg = /^[A-Za-z0-9]+$/;
+
+					if(this.WaybillInfo.waybail ==''){
+						alert("运单号不能为空")
+						return false;
+					}
+					else if(!waybillReg.test(this.WaybillInfo.waybail) ){
+						alert("运单号格式不对")
+						return false;
+					}
+					
+		      		var url = this.$store.state.localHostUrl +'/returnWaybill.json'
+		      		var data= qs.stringify(this.WaybillInfo)
+		      		var that = this
+		      		that.$http.post(url,data,{emulateJSON:true}).then(
+		      			function (res){
+		      				if(!res.data.ret){
+		      					that.$router.push({path:'/Refunding',query:{}})	
+		      				}
+							else{
+								alert(res.data.descript)
+
+							}
+		      			}
+		      		)
+		      	},
+			},
+			mounted(){
+			}
+		}
+</script>
+<style>
+.IM_list{
+	background: #fff;
+}
+.IM_list span{
+	font-size: 0.75rem;
+    line-height: 40px;
+}
+.IM_list .mint-cell{
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #d7d7d7;
+}
+.RD_I{
+	 
+	left: 2px;
+}
+
+.RG_returnMoney{position: absolute;right: -9px;top:0;font-size: 0.7rem;}
+
+.RetundGoods>.wide_btn_blue{
+	margin-top: 55px;
+}
+.mint-field-core{
+	 font-size: 12px;
+}
+</style>

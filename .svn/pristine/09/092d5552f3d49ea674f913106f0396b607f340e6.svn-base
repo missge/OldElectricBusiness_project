@@ -1,0 +1,11 @@
+
+插件安装：npm install
+
+路由安装：npm install vue-router --save-dev
+
+axios安装：npm install axios --save-dev
+
+vuex安装：npm install vuex --save-dev
+mint-ui安装 npm i mint-ui -S
+
+

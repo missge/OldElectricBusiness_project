@@ -1,0 +1,62 @@
+<template>
+	<div class="OrderedFoodSuccess">
+		<div class="ODS_herder">
+			<img src="../../assets/img/pay_icon.png" width="80px;" height="80px">
+			<p class="ODS_title">支付成功</p>
+		</div>
+		<div class="ODS_content">
+			<p>{{merchantName}}</p>
+			<h1>￥{{money}}</h1>
+		</div>
+		<div class="wide_btn_blue" @click="closeFn">
+			关闭
+		</div>
+	</div>
+</template>
+<script>
+import router from '@/router'
+import {setCookie,getCookie} from '../../cookie/cookie.js'
+export default{
+	name:'OrderedFoodSuccess',
+	data(){
+		return{
+			merchantName:getCookie('merchantName'),
+			money:this.$route.query.payAmt
+		}
+	},
+	methods:{
+		closeFn(){
+			window.opener=null;    
+			window.open("","_self");    
+			window.close();    
+		}
+	}
+}
+</script>
+<style>
+	.ODS_herder{
+		margin:0 auto;
+		padding: 36px 0 44px 0;
+		text-align: center;
+	}
+	.ODS_herder>img{
+		margin-bottom: 15px;
+	}
+	.ODS_herder p{
+		color:#3A77BD;
+		font-size: 1rem;
+		font-weight: bold;
+	}
+	.ODS_content{
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+	.ODS_content>p{
+		margin-bottom: 10px;
+	}
+	.ODS_content>h1{
+		font-size: 2rem;
+		color: #414141;
+		font-weight: bold;
+	}
+</style>

@@ -1,0 +1,29 @@
+<template>
+  <div id="app">
+      <div class="header">
+           微信标题
+      </div>
+    <router-view/>
+  </div>
+</template>
+<script>
+export default {
+  name: 'app',
+}
+</script>
+
+<style>
+  @import 'assets/css/index.css';
+   @import 'assets/style.css';
+
+  .header{
+      width: 100%;
+      height: 2.2rem;
+      background: #3669bc;
+      color: #fff;
+      line-height: 2.2rem;
+      text-align: center;
+      font-size: 0.85rem;
+     
+  }
+</style>

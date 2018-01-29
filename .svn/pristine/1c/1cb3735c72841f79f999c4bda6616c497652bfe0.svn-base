@@ -1,0 +1,147 @@
+<template>
+	<div class="EC_categoryPage">
+		<!-- <div class="show_toolbar" v-show="isShow!=true" > -->
+		<div class="show_toolbar" :class="{'shows':isShows}" >
+			<div class="toolbar" >
+				<div class="EC_CP_header">
+					<div class="EC_CP_input">
+						<input type="" placeholder="" @focus="isShowFn()"   name=""> 
+						<img  src="../assets/img/ML_search.png" width="18px" height="18px">
+					</div>	
+				</div>
+			</div>
+			<div class="EC_CP_goods">
+				<div class="Online_goods">
+					<div class="menu-wrapper">
+						<ul class="EC_CP_menu_lf">
+							<li class="" v-for="(items,index) in datalist" @click="test(index)" :class="on==index?'EC_CP_selected':''">
+								{{items.familyName}}
+							</li>
+						</ul>
+					</div>
+					<div class="foods-wrapper EC_CP_wrapper"  >
+						<ul>
+							<li>
+								<div class="EC_CP_content" @click="GoMallList(firstItem.familyId)" v-for="(firstItem,index) in firstDatalist.mallFamilyGoodsDTO">
+									<img src="./img/goods1.png">
+									<p>{{firstItem.familyName}}</p>
+								</div>
+								
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<search  :class="{'shows':!isShows}" @getIsShow="SetisShow" ></search>
+		
+	</div>
+</template>
+<script>
+import {setCookie,getCookie} from '../cookie/cookie.js'
+import qs from 'qs'
+import Vue from 'vue'
+import router from '@/router'
+import Search from './Search'
+export default{
+	name:'CategoryPage',
+	components:{
+		Search
+	},
+	data(){  
+		return {
+			datalist:[],
+			// searchList:	this.$store.state.GoodsSearchOldInfo.result,
+			firstDatalist:[],
+      		OrderInfo :{
+	 			mallId:getCookie('mallId'),
+      		},
+      		// isShow:false,
+      		searchInfo:{
+      			mobile:getCookie('mobile'),
+				openId:getCookie('openId'),
+				mallId:getCookie('mallId'),
+      		},
+      		isShows:false,
+      		on:0
+      	
+		}
+	},
+    methods:{
+    	SetisShow(data){
+    		this.isShows = data;
+    	},
+    	dataLoad(){
+			var url = this.$store.state.localHostUrl +'/searchMallGoodsFamily.json'
+			var data= qs.stringify(this.OrderInfo)
+			var that = this
+			that.$http.post(url,data,{emulateJSON:true}).then(
+	      		function (res){
+      				if(!res.data.ret){
+      					that.datalist=res.data.data
+      					that.firstDatalist=that.datalist[0]
+      					console.log(that.datalist)
+      				}
+					else{
+						// alert(res.data.descript)
+					}
+	      		}
+	      	)
+	    },
+	    test(i){
+	    	this.on=i
+	    	this.firstDatalist=this.datalist[i]
+	    },
+	    ClickFn(I,goodID){
+	    	var url = this.$store.state.localHostUrl +'/searchMallGoodsFamilyByTop.json'
+			var data= qs.stringify({mallId:getCookie('mallId'),goodsFamilyId:goodID})
+			var that = this
+			that.$http.post(url,data,{emulateJSON:true}).then(
+	      		function (res){
+      				if(!res.data.ret){
+      					that.datalist=res.data.data
+      					that.firstDatalist=that.datalist[0]
+      				}
+					else{
+						// alert(res.data.descript)
+					}
+	      		}
+	      	)
+	    },
+		GoMallList(familyId){
+			this.$router.push({path:'MallList',query:{familyId:familyId,searchFlag:0}})
+		},
+	 	isShowFn(){
+        	this.isShows=!this.isShows;
+        },
+    },
+
+	// watch:{
+		// search:function(){
+		// 	this.searchInfo.goodsName=this.search
+		// 	var url = this.$store.state.localHostUrl +'/searchMallGoodsName.json'
+		// 	var data= qs.stringify(this.searchInfo)
+		// 	var that = this
+		// 	that.$http.post(url,data,{emulateJSON:true}).then(
+	 //      		function (res){
+  //     				if(res.data.ret==0){
+  //     					that.$router.push({path:'MallList',query:{goodsName:''}})
+      				
+  //     				}
+		// 			else{
+		// 				// alert(res.data.descript)
+		// 			}
+	 //      		}
+	 //      	)
+		// }
+	// },
+    mounted(){  
+      this.dataLoad();
+    },
+}
+</script>
+<style>
+
+
+/*.hide_toolbar{display: none;}*/
+</style>

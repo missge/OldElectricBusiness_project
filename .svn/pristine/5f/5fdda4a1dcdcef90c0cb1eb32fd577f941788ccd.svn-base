@@ -1,0 +1,93 @@
+<template>
+	<div class="Refunding">
+		<div class="OL_content" >
+		  	<div>
+		  		<ul>
+		  			<li class="mar_top" v-for="(items,index) in datalist" >
+		  				<div class="OL_title title_bor">
+		  					<p class="lf"><i></i>1</p>
+		  					<h6 class="rt" v-show="items.status == 8">退款中</h6>
+		  					<h6 class="rt" v-show="items.status == 9">退款完成</h6>
+		  				</div>
+		  				<ul>
+		  					<li  class="OL_fooditem title_bor"  v-for="(item,index) in items.orderGoodsRelList" > 		
+		  						<div class="OL_fooditem_lf">
+		  							<img  :src="item.goodphoto"  >
+		  						</div>
+		  						<div class="OL_foodltem_rt">
+		  							<span >1</span>
+		  							<span><img class="ml4" width="10px" height="10px" src="./../assets/img/ml4.png"/>{{item.unitPrice
+}}<br/>{{item.qty}}件</span>
+		  						</div>
+		  					</li>
+		  				</ul>
+
+		  				<div class="mar_top_bot title_bor">
+		  					<div class="mar_top_botlf">
+		  						<span>总额:<img class="ml4" width="10px" height="10px" src="./../assets/img/ml4.png"/>{{items.orderAmt
+}}</span>
+		  						<span>实付:<img class="ml4" width="10px" height="10px" src="./../assets/img/ml4.png"/>？？</span>
+		  					</div>
+		  					<div class="mar_top_botrt">
+			  						<span class="btn_gray" @click="go_OrderdetailFn(items.orderId,items.refId)">详情</span>
+		  					</div>
+		  					
+		  				</div>
+		  			</li>
+		  		</ul>
+
+		  	</div>
+		</div>
+	</div>
+</template>
+<script>
+import {setCookie,getCookie} from './../cookie/cookie.js'
+import qs from 'qs'
+import Vue from 'vue'
+import router from '@/router'
+export default{
+	name:'Refunding',
+		data(){
+			return{
+				OrderInfo:{
+					mobile:getCookie('mobile'),
+					openId:getCookie('openId')
+				},
+				datalist:[]
+			}
+		},
+		methods:{
+			searchOrder(){
+	      		var url = this.$store.state.localHostUrl +'/refundOrderInfo.json'
+	      		var data= qs.stringify(this.OrderInfo)
+	      		var that = this
+	      		that.$http.post(url,data,{emulateJSON:true}).then(
+	      			function (res){
+	      				if(!res.data.ret){
+	      					that.datalist=res.data.data
+	      					console.log(that.datalist)
+	      				}
+						else{
+							alert(res.data.descript)
+
+						}
+	      			}
+	      		)
+	      	},
+	      	go_OrderdetailFn(o,refId){
+	      		console.log(refId)
+				router.push({path:'/RefundingDetaile',query:{"orderId":o,"refId":refId}})
+
+	      	}
+		},
+		mounted(){
+			this.searchOrder()
+		}
+	}
+</script>
+<style>
+	.Refunding .OL_content{
+		top:0;
+	}
+	.Refunding .mar_top{margin-bottom:8px;margin-top:0px;}
+</style>

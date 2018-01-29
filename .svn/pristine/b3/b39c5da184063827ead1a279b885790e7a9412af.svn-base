@@ -1,0 +1,38 @@
+<template>
+	<div class="noCard">
+		<div class="NC_img">
+			<img src="./img/timg.png" width="50px" height="50px">
+		</div>
+		<div class="Nc_bot">
+			抱歉，您当前未开通饭卡，无法点餐如有疑问，请致电<a  :href="'tel:'+telephone">{{telephone}}</a>联系上海锦歌客服
+		</div>
+	</div>
+</template>
+<script>
+	export default{
+		name:"noCard",
+		data(){
+			return{
+				telephone:'021-12345678'
+			}
+		}
+	}
+</script>
+<style>
+	.noCard{
+		width: 80%;
+		margin:2rem auto;
+		text-align: center;
+	}
+	.NC_img{
+		margin-bottom: 2rem
+	}
+	.Nc_bot{
+		text-align: left;
+			text-indent: 2em;
+			line-height: 23px;
+	}
+	.Nc_bot>a{
+		color: #3879D9;
+	}
+</style>

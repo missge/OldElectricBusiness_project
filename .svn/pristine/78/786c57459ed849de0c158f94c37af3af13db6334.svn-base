@@ -1,0 +1,71 @@
+<template>
+	<div class="ApplyforRefund">
+		<ul class="AFR_content">
+			<li>
+				<div class="OL_title ">
+					<p class="lf">退款类型</p>
+				</div>
+				<div class="AFR_content_bot">
+					<ul class="AFR_btn">
+						<li class="btn_type change_btn">我要退款</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="OL_title ">
+					<p class="lf">收货状态</p>
+				</div>
+				<div class="AFR_content_bot">
+					<ul class="AFR_btn">
+						<li class="btn_type ">未收到货</li>
+						<li class="btn_type change_btn">已收到货</li>
+
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="OL_title ">
+					<p class="lf">收货运费</p>
+				</div>
+				<div class="AFR_content_bot">
+					<ul class="AFR_btn">
+						<li class="btn_type ">我来付</li>
+						<li class="btn_type change_btn">商家承担</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="OL_title ">
+					<p class="lf">退款原因</p>
+				</div>
+				<div class="AFR_content_bot">
+					<ul class="AFR_btn">
+						<li class="btn_type ">质量原因</li>
+						<li class="btn_type change_btn">不想要了</li>
+   						<li class="btn_type change_btn">不发货</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="OL_title ">
+					<p class="lf">退款说明</p>
+				</div>
+				<div class="AFR_content_bot">
+					<textarea class="Refund_Explain" placeholder="aaa">
+						adf
+					</textarea>
+				</div>
+			</li>
+		</ul>
+	</div>
+</template>
+<style>
+	.AFR_content>li{margin-bottom:8px;background: #fff;}
+	.AFR_btn{padding:14px 0;}
+	.AFR_content .OL_title,.AFR_content_bot{width: 96%;margin:0 auto;}
+	.AFR_content .OL_title{border-bottom:1px solid #E1E1E1;} 
+	.AFR_btn>li{height: 35px;line-height:35px;padding:0 20px;font-size: 0.6rem;width: inherit;display: inline-block;    margin-right: 9px;    margin-bottom: 9px;}
+	.btn_type{border:1px solid #959595;color: #959595;}
+	.change_btn{background: #F08632;border:#F08632;color:#fff;}
+	.Refund_Explain{width: 100%;background: #E5E5E5;height: 50px;font-size: 0.55rem;}
+</style>

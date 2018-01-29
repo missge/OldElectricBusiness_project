@@ -1,0 +1,109 @@
+<template>
+	<div class="DeliveryAddress">
+		<ul class="shoppingCard_content"  >
+	  		<li v-for="(item,index) in datalist">
+	  			<ul class="DA_list">
+		  			<li class="mar_top max_width" >
+		  					<div>
+		  						<img src="./img/RO_icon1.png" class="DA_addressimg" width="22px" height="19px">
+		  					</div>	
+							<div class="SeectAddress_rt">
+		  						<div class="SelectAddress_title">
+		  							<span class="SA_name organge_fonts">{{item.memName}}</span>
+		  							<span class="SA_phone organge_fonts">{{item.phoneNo}}</span>
+		  						</div>
+		  						<div class="SelectAddress_bot">
+		  							{{item.province}}	{{item.city}}	{{item.area}}	{{item.streetAddress}}
+		  						</div>
+		  					</div>
+		  			</li>
+		  			
+		  		</ul>
+		  		<div class="DeliveryAddress_footer flex max_width">
+		  			<div class=" flex_lf">
+		  					<label class="mint-checklist-label" >
+								<span class="mint-radiobox" >
+									<input type="radio"  :checked="index==change" class="mint-radio-input" value="" name="default_check" @click="default_check(index,item.id)"> 
+									<span class="mint-radio-core" ></span>
+								</span>
+								 <span class="mint-checkbox-label organge_fonts"  v-if="index==change" >设置默认地址</span>
+							</label>
+		  			</div>
+		  			<div class=" flex_rt flex">
+		  				<p class="flex_rt organge_fonts" @click="updata(item.id,item.memName,item.phoneNo
+)">
+		  					<img src="./img/change.png" width="21px" height="21px">
+		  					修改
+		  				</p>
+		  				<p class="flex_center gray_font" >
+		  					<img src="./img/change_d.png" width="21px" height="21px">
+		  					删除
+		  				</p>
+		  			</div>
+		  		</div>
+	  		</li>
+	  		
+		</ul>
+		<div class="addAdress_btn" @click="addAdressFn">
+			+添加收货地址
+		</div>
+	</div>
+</template>
+<script>
+	import {setCookie,getCookie} from '../cookie/cookie.js'
+	import qs from 'qs'
+	import  vue from 'vue'
+	export default{
+		name:'DeliveryAddress',
+		data(){
+			return {
+				AddressInfo:{
+					mobile:getCookie('mobile'),
+		 			openId:getCookie('openId')
+				},
+				datalist:[],
+				change:0
+			}
+		},
+		methods:{
+			getRecAdd(){
+				var formData =qs.stringify(this.AddressInfo)
+				var url = this.$store.state.localHostUrl+'/getRecAddress.json'
+				var that=this
+				that.$http.post(url,formData,{emulateJSON:true}).then(
+					function(res){
+						if(res.data.ret==0){
+							that.datalist=res.data.data
+							console.log(res.data.data)
+						}else{
+							alert(res.data.descript)
+						}
+					}
+				)
+			},
+			default_check(num,memId){
+	 			console.log(num)
+	 			this.change=num
+			},
+			updata(id){
+				this.$router.push({path:'/addAdress',query:{receivId:'id'}})
+			},
+			addAdressFn(){
+				this.$router.push({path:'/addAdress'})
+			}
+		},
+		mounted(){
+			this.getRecAdd()
+		}
+	}
+</script>
+<style>
+	.DA_addressimg{padding-top:15px;padding-right: 3px;}
+	.DA_list>.mar_top{border-bottom: 1px solid #D8D8D8;background: none;}
+	.shoppingCard_content{margin-bottom:40px;}
+	.DeliveryAddress .shoppingCard_content>li{background:#fff; }
+	.DeliveryAddress .mint-checkbox-label{margin-left: 0px;}
+	.DeliveryAddress_footer{padding-bottom: 14px;}
+	.DeliveryAddress_footer p.flex_rt img,.DeliveryAddress_footer p.flex_center img{    vertical-align: text-bottom;}
+
+</style>

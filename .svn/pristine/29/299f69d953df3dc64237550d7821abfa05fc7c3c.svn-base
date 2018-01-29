@@ -1,0 +1,45 @@
+<template>
+	<div class="cartcontrol-wrapper">
+		<div class="cartcontrol">
+			<transition name="fadeRotate">
+				<div class="cart-decrease" v-show="item.number>0" v-on:click="decreaseCart()" >
+					<span class="icon-remove_circle_outline inner">	</span>
+				</div>
+			</transition>
+			<div class="cart-count" v-show="item.number>0" >{{item.number}}</div>
+			<div class="cart-add" v-on:click="addCart()">
+				<i class="icon-add_circle"></i>
+			</div>
+	
+		</div>
+	</div>
+</template>
+<script>
+export default{
+	data() {
+	 	return {
+    		counter: 0,
+  		}
+	},
+	props:{
+		'item':Object,
+	},
+	methods: {
+	    addCart: function(){
+	      this.item.number++;
+	      // this.num+=this.item.number
+	      // console.log(this.item.number)
+	      this.notify();
+	    },
+	    decreaseCart: function(){
+	    	if(this.item.number) this.item.number--;
+	    	
+	      	this.notify();
+	    },
+		notify () {
+			this.$emit('input',this.item.number);
+			this.$emit('listenToChildEvent','event');
+		}
+  }
+}	
+</script>

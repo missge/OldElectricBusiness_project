@@ -1,0 +1,174 @@
+<template>
+	<div class="OrderList">
+		<div class="OL_tab">
+			<mt-navbar v-model="selected">
+			  <mt-tab-item  id="1">全部</mt-tab-item>
+			  <mt-tab-item id="2">待支付</mt-tab-item>
+			  <mt-tab-item id="3">待确认</mt-tab-item>
+			   <mt-tab-item id="4">待发货</mt-tab-item>
+			  <mt-tab-item id="5">待收货</mt-tab-item>
+			  <mt-tab-item id="6">待评价</mt-tab-item>
+			</mt-navbar>
+		</div>
+		<div class="OL_content" >
+			<mt-tab-container v-model="selected"  >
+			  <mt-tab-container-item id="1" class="show" >
+			  	<div class="OL_tabone">
+			  		<ul>
+			  			<li class="mar_top">
+			  				<div class="OL_title title_bor">
+			  					<p class="lf"><i></i>电控所江浦路餐厅</i>
+			  					<h6 class="rt">待收货</h6>
+			  				</div>
+			  				<ul>
+			  					<li class="OL_fooditem title_bor"> 
+			  						<div class="OL_fooditem_lf">
+			  							<img  src="./img/food_icon.png" width="80px" height="50px">
+			  						</div>
+			  						<div class="OL_foodltem_rt">
+			  							<span >宫保鸡丁</span>
+			  							<span>￥12.00*1件</span>
+			  						</div>
+			  					</li>
+			  						<li class="OL_fooditem title_bor"> 
+			  						<div class="OL_fooditem_lf">
+			  							<img  src="./img/food_icon.png" width="80px" height="50px">
+			  						</div>
+			  						<div class="OL_foodltem_rt">
+			  							<span >宫保鸡丁</span>
+			  							<span>￥12.00*1件</span>
+			  						</div>
+			  					</li>
+			  				</ul>
+
+			  				<div class="mar_top_bot title_bor">
+			  					<div class="mar_top_botlf">
+			  						<span>总额:￥16.00</span>
+			  						<span>实付:￥0.00</span>
+			  					</div>
+			  					<div class="mar_top_botrt">
+			  						<span class="btn_blue">取餐码</span>
+			  						<span class="btn_gray">详情</span>
+			  					</div>
+			  				</div>
+			  			</li>
+			  		</ul>
+			  	</div>
+			  </mt-tab-container-item>
+			  <mt-tab-container-item id="2">
+			  2
+			  </mt-tab-container-item>
+			  <mt-tab-container-item id="3">
+				 3
+			  </mt-tab-container-item>
+			</mt-tab-container>
+		</div>
+	
+	</div>
+
+</template>
+<script>
+
+	export default{
+		name:'OrderList',
+		data(){
+			return {
+				selected:'1'
+			}
+		}
+	}
+</script>
+<style scoped>
+/*全部代码*/
+	.OL_tab>.mint-navbar{
+		background: #EEEEEE;
+	}
+	.OL_tab .mint-navbar .mint-tab-item{
+		padding:13px 0;
+	}
+	.OL_tab .is-selected{
+		background: #fff;
+	}
+	.OL_content{
+		background: #F7F7F7;
+		position: absolute;
+		top:38px;
+		bottom:0px;
+		width: 100%;
+	}
+	.OL_title{
+		height: 25px;
+		line-height: 26px;
+	}
+	.OL_title>.lf{
+		color: #3275BC;
+		font-size: 10px;
+		line-height: 25px;
+	}
+	.OL_title>.lf i{
+		display: inline-block;
+		width: 15px;
+		height: 25px;
+		background: url("./img/Or_icon.png") no-repeat left center;
+		background-size: 100%;
+		vertical-align: bottom;
+		margin-right: 5px;
+		margin-left: 5px;
+	}
+	.OL_title>.rt{
+		font-size: 12px;
+		color:#434343;
+		padding-right: 10px;
+	}
+	.OL_fooditem{
+		display: flex;
+		/*position: relative;*/
+	}
+	.OL_fooditem_lf{
+		flex:0 0 80px;
+		width: 80px;
+
+	}
+	.OL_foodltem_rt{
+	-webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    /* top: 50%; */
+    /* left: 100px; */
+    /* transform: translateY(-50%); */
+    position: relative;
+    margin-left: 10px;
+    line-height: 72px;
+	}
+	.OL_fooditem_lf>img{
+		margin:10px 0; 
+	}
+	.OL_foodltem_rt>span:first-child{
+		font-size: 10px;
+
+	}
+	.OL_foodltem_rt>span:last-child{
+	    font-size: 10px;
+	    font-weight: bold;
+	    position: absolute;
+	    right: 10px;
+	}
+	.mar_top_bot{
+		display: flex;
+		height:40px;
+		line-height: 40px;
+	}
+	.mar_top_botrt{
+    line-height: 36px;
+	}
+	.mar_top_botlf,.mar_top_botrt{
+		flex:1;
+	}
+	.mar_top_botlf span{
+		font-size: 10px
+	}
+	.mar_top_botrt {
+		text-align: right;
+	}
+/*全部代码结束*/
+</style>

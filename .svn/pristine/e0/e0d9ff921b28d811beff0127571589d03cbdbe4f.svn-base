@@ -1,0 +1,152 @@
+<template>
+	<div class="RefundOrder">
+		<div class="Orderdetail_goods">
+			<!-- <div class="ODG_title">待支付</div> -->
+			<div class="ODG_title">退款中
+				<div class="RO_returnMoney">
+					查看进度 >
+					
+				</div>
+			</div>
+			<div class="RO_header">
+				<ul>
+					<li class="jt_box">
+						<div class="RO_header_lf">
+							<img src="./img/RO_icon.png" width="19px" height="17px">
+						</div>
+						<div class="RO_header_rt">
+							<p class="organge_fonts">[北京市]前台签收</p>
+							<span class="gray_fonts">10-9 12:00</span>
+						</div>
+						<img class="jt" src="./img/jt.png" width="6px" height="5px">
+					</li>
+					<li class="jt_box">
+						<div class="RO_header_lf">
+							<img src="./img/RO_icon1.png" width="16px" height="17px">
+						</div>
+						<div class="RO_header_rt">
+							<p class="width_auto ">周周周</p>
+							<span class="width_auto pub_messge">上海。。</span>
+						</div>
+					</li>
+					<li class="jt_box">
+						<div class="RO_header_lf">
+							<img src="./img/RO_icon2.png" width="17px" height="15px">
+						</div>
+						<div class="RO_header_rt pub_messge">
+							<p class="width_auto ">订单留言:</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="ODG_content" >
+			  	<div class="OL_tabone">
+			  		<ul>
+			  			<li >
+			  				<div class="OL_title title_bor">
+			  					<p class="lf"><i></i>aa</p>
+			  				</div>
+			  				<ul>
+			  					<li class="OL_fooditem title_bor" > 
+			  						<div class="OL_fooditem_lf">
+			  							<img class="ml4"  src="../assets/img/ml4.png"/>
+			  						</div>
+			  						<div class="OL_foodltem_rt">
+			  							<span >1</span>
+			  							<span><img class="ml4" width="10px" height="10px" src="../assets/img/ml4.png"/>11*1件</span>
+			  						</div>
+			  					</li>
+			  				</ul>
+
+			  				<div class="mar_top_bot title_bor">
+			  					<div class="mar_top_botrt">
+			  						<!-- <span class="btn_blue">发表评论</span> -->
+			  						<span class="btn_blue">申请退款</span>
+			  					</div>
+			  				</div>
+			  			</li>
+			  			<li >
+			  				<div class="OL_title title_bor">
+			  					<p class="lf"><i></i>aa</p>
+			  				</div>
+			  				<ul>
+			  					<li class="OL_fooditem title_bor" > 
+			  						<div class="OL_fooditem_lf">
+			  							<img class="ml4"  src="../assets/img/ml4.png"/>
+			  						</div>
+			  						<div class="OL_foodltem_rt">
+			  							<span >1</span>
+			  							<span><img class="ml4" width="10px" height="10px" src="../assets/img/ml4.png"/>11*1件</span>
+			  						</div>
+			  					</li>
+			  				</ul>
+
+			  				<div class="mar_top_bot title_bor">
+			  					<div class="mar_top_botrt">
+			  						<!-- <span class="btn_blue">发表评论</span> -->
+			  						<span class="btn_blue">申请退款</span>
+			  					</div>
+			  				</div>
+			  			</li>
+			  		</ul>
+			  		<div class="mar_top_botrt btn_Light">
+			  			<span class="btn_Light_grey	">整单退货</span>
+			  		</div>
+			  	</div>
+			  	<ul class="ODG_list">
+					<li>
+						<mt-cell title="商品总价" >
+							<span><img class="ml4" width="10px" height="10px" src="../assets/img/ml4.png"/>1</span>
+						</mt-cell>
+					</li>
+					<li>
+						<mt-cell title="运费" >
+							<span>+<img class="ml4" width="10px" height="10px" src="../assets/img/ml4.png"/>0.00</span>
+						</mt-cell>
+					</li>
+					<li>
+						<mt-cell title="卡包抵扣" >
+							<span>-<img class="ml4" width="10px" height="10px" src="../assets/img/ml4.png"/>1</span>
+						</mt-cell>
+					</li>
+					<li>
+						<mt-cell title="参与的活动" ></mt-cell>
+					</li>
+					<li class="ODG_payment">
+						<div >实付款: <span class="blue_font"><img class="ml4" width="10px" height="10px" src="../assets/img/ml4.png"/>11</span> </div>
+					</li>
+				</ul>
+				<div class="ODG_footer">
+					<p>订单号：111</p>
+					<p>下单时间：222</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+	export default{
+		name:'RefundOrder',
+		data(){return{}}
+	}
+</script>
+<style>
+.Orderdetail_goods>.ODG_title{position: relative;}
+.RO_returnMoney{position: absolute;right: 17px;top:0;font-size: 0.7rem;}
+	.OL_tabone{background: #fff;}
+	.btn_Light{width: 96%;margin:0 auto;border-top:1px solid #D8D8D8;}
+	.RO_header{background: #fff;margin-top:8px;}
+	.RO_header ul{width: 96%;margin:0 auto;}
+	.RO_header ul>li{border-bottom:1px solid #D8D8D8;display: flex;    padding: 15px 0;}
+	.RO_header_lf{width: 40px;text-align: center;flex: 0 0 1;}
+	.RO_header_lf>img{vertical-align: -webkit-baseline-middle;}
+	.RO_header_rt{flex: 1;}
+	.RO_header_rt>.organge_fonts{font-size:0.7rem;}
+	.RO_header_rt>.gray_fonts{font-size: 0.55rem;}
+	.jt_box{position: relative;}
+	.jt{position: absolute;right: 15px; transform:translateY(-50%); top:50%;}
+	.RO_header_rt .width_auto{border:none;}
+	.RO_header .pub_messge{line-height: inherit;}
+	.RO_header ul>li:last-child{border:none;}
+</style>

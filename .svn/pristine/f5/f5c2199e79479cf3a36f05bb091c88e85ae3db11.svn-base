@@ -1,0 +1,198 @@
+<template>
+	<div id="home">
+		<div class="home_header">
+			<div class="home_header_img">
+				<img width="100%" height="100%" src="./img/home_bg.png">
+			</div>
+			<div class="home_title_bg">
+				<img src="./img/home_title_bg.png">
+			</div>
+			<h5>电控所江浦路餐厅</h5>
+			<p>就餐日期:10月14日</p>
+		</div>
+		<div class="home_content">
+			<table>
+				<tr>
+					<td>
+						<div class="home_con_box">
+							<div class="home_con_minwidth">
+								<img class="home_con_icon" src="./img/tab1.png">
+								<span class="home_con_name">早餐</span>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="home_con_box">
+							<div class="home_con_minwidth">
+									<img class="home_con_icon" src="./img/tab2.png">
+								<span class="home_con_name">早餐</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="home_con_box">
+							<div class="home_con_minwidth">
+								<img class="home_con_icon" src="./img/tab1.png">
+								<span class="home_con_name">早餐</span>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div class="home_con_box">
+							<div class="home_con_minwidth">
+									<img class="home_con_icon" src="./img/tab2.png">
+								<span class="home_con_name">早餐</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div class="home_con_box last_tab">
+							<div class="home_con_minwidth">
+								<img class="home_con_icon" src="./img/tab1.png">
+								<span class="home_con_name">每周一歌</span>
+							</div>
+						</div>
+					</td>
+					
+				</tr>
+			</table>
+		</div>
+		<div class="home_footer"> 
+			<div class="home_pay" @click="orderFn">
+				<span class="home_pay_icon">现场支付</span>
+			</div>
+			<div class="home_prompt">
+				<p>
+					温馨提示：早餐、中餐、晚餐、特色菜需要提前2天点餐；每周一“歌”菜品周一至周三17:00前接受预定，周五到食堂自行取餐。
+				</p>
+				<p>
+					点餐订单如需退订,请于取餐前一天14:00前在订单详情页申请退款，预期无法处理;
+				</p>
+			</div>
+		 </div>
+	</div>
+</template>
+<script>
+import router from '@/router'
+export default{
+	 name: 'home',
+	   methods: {
+	    orderFn:function(){
+	         router.push({path: '/OnlineOrder'})
+
+    	}
+  	}
+}
+</script>
+<style scoped>
+.home_header{
+	position: relative;
+}
+.home_header_img{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.home_title_bg>img{
+	margin: 0 auto;
+	padding: 5px 0;
+}
+.home_header>h5{
+	text-align: center;
+	color: #fff;
+
+}
+.home_header>p{
+	text-align: center;
+	color: #fff;
+	font-size:10px;
+	padding: 10px 0;
+
+}
+.home_content{
+	width: 80%;
+	margin:0 auto;
+    margin-top: 1.5rem;
+    margin-bottom: 1.7rem;
+}		
+.home_content table{
+	width:100%;
+}
+.home_con_box{
+	width: 80%;
+	margin: 0 auto;
+	background: #DFDFDF;
+	box-shadow:0px 0px  10px 5px #F1F1F1;
+    height: 2.1rem;
+    line-height: 2.1rem;
+     margin-bottom: 1rem;
+}
+.home_con_minwidth{
+	width: 70%;
+	margin:0 auto;
+	text-align: center;
+}
+.home_con_name{
+	font-size: 14px;
+}
+.home_con_minwidth>img{
+	display: inline-block;
+	vertical-align: middle;
+}
+.last_tab{
+	width: 90%;
+	margin-bottom:0px;
+}
+.last_tab>.home_con_minwidth{
+	text-align: center;
+}
+.home_footer{
+	width: 90%;
+	margin: 0 auto;
+	border-top:1px solid #A0A0A0;
+	text-align: center;
+
+}
+.home_pay{
+	width: 80%;
+	background: #3375BB;
+	color:#fff;
+	height:1.5rem;
+	line-height: 1.5rem;
+	font-size:0.75rem;
+	margin: 1.5rem auto 3.5rem auto;
+}
+.home_pay_icon{
+	 display: inline-block;
+    height: 30px;
+    background: url(/static/img/home-tab.6569b5c.png) no-repeat left center;
+    margin-right: 5px;
+    padding-left: 30px;
+}
+.home_prompt{
+	width: 90%;
+    background: #EEEEEE;
+    margin: 0 auto;
+    text-align: left;
+    padding: 0 15px;
+    /*padding-top: 10px;*/
+}
+
+.home_prompt>p{
+	font-size: 10px;
+	color:#8E8E8E;
+	line-height: 18px;
+    padding: 10px  0;
+
+}
+.home_prompt p:first-child{
+	padding-bottom:0px;
+}
+</style>

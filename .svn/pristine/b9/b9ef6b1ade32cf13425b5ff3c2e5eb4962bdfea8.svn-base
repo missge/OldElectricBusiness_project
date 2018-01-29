@@ -1,0 +1,74 @@
+<template>
+	<div class="Ehome">
+		<div class="Ehome_toolbar margin_bot">
+			<div class="toolbar_search">
+				<input type="" name="" >
+				<span class="glyphicon glyphicon-search"> 搜索 </span>
+			</div>
+		</div>
+		<div class="Ehome_swiper margin_bot">
+			<mt-swipe :show-indicators="false">
+			  <mt-swipe-item >
+					1
+			  </mt-swipe-item>
+			</mt-swipe>
+		</div>
+		<div class="Ehome_navbar margin_bot">
+			<ul class="flex">
+				<li>
+					<img src="./home/7.png" class="img-responsive">
+				</li>
+				<li>
+					<img src="./home/7.png" class="img-responsive">
+				</li>
+				<li>
+					<img src="./home/7.png"class="img-responsive">
+				</li>
+				<li>
+					<img src="./home/7.png" class="img-responsive">
+				</li>
+				<li>
+					<img src="./home/7.png" class="img-responsive">
+				</li>
+			</ul>
+		</div>
+		<div class="Ehome_oneimg">
+			<img src="./home/66.png" class="img-responsive" width="100%" >
+		</div>
+		<div class="Ehome_Twoimg">
+			
+		</div>
+	</div>
+</template>
+<script>
+import router from '@/router'
+import qs from 'qs'
+import Vue from 'vue'
+export default{
+	name:'Ehome',
+	data(){
+		return {
+			i:100
+		}
+	}
+
+}
+</script>
+<style>
+	.Ehome_toolbar{background: #F79E20;}
+	.toolbar_search{width: 80%;margin:0 auto;position: relative;padding:12px 0;}
+	.toolbar_search>input{height: 30px;line-height: 30px; text-align: center;width: 100%;border-radius: 10px;}
+	.toolbar_search .glyphicon-search{position:absolute;transform: translateX(-50%) translateY(-50%);left: 50%; top:50%;color:#A2A2A2;font-size: 0.5rem;line-height: 30px;}
+	.margin_bot{margin-bottom:5px;}
+	.Ehome_swiper{height:145px;width: 100%; max-height: 145px;}
+	.Ehome_navbar{background: #fff;}
+	.Ehome_navbar .flex {    display: flex;  flex-direction: row;  flex-wrap: wrap;text-align: center;padding-bottom:20px;}
+	.Ehome_navbar .flex li{width: 25%; box-sizing: border-box;}
+	.Ehome_navbar .flex li img{padding: 20px 20px 0 20px; }
+	.Ehome_oneimg{max-height:132px;min-height:34px; }
+	.img-responsive {
+	  display: block;
+	  height: auto;
+	  max-width: 100%;box-sizing: border-box;
+}
+</style>

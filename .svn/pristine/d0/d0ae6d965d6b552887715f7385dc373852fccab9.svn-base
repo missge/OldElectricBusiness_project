@@ -1,0 +1,176 @@
+<template>
+  <div class="register">
+    <div class="Wxos-regbg">
+    <div class="reg-boxs">
+      <div class="reg_table">
+        <form>
+          <div class="reg_phone">
+            <span class="reg_icon_phone"></span>
+            <input class="" type="" name="" placeholder="请输入手机号">
+          </div>
+          <div class="reg_phone reg_code_box">
+            <div class="reg_code">
+              <span class="reg_icon_code"></span>
+              <input type="" name="" placeholder="验证码">
+            </div>
+            <div class="reg_getcode"> 验证码</div>
+          </div>
+          <div class="reg_bind" @click="bindCard">
+            登录
+          </div>
+         <div @click="testFn('testData')">测试</div>
+
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import router from '@/router'
+export default {
+  name: 'register',
+  data () {
+    return {
+      msg: 'Welcome to Your register.js App'
+    }
+  },
+   methods: {
+    bindCard:function(){
+         router.push({path: '/Home'})
+
+    },
+    testFn:function(fun_name){
+      this.$store.dispatch(fun_name)
+    }
+  }
+}
+</script>
+<style scoped>
+.Wxos-regbg{
+   position: absolute;
+    top: 2.2rem;
+    bottom: 0px;
+    width: 100%;
+    overflow: hidden;
+    background: url("./img/reg_bg.png") no-repeat center center;
+    background-size: cover;
+}
+.reg-boxs{
+  position: absolute;
+  left:50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 80%;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  top: 210px;
+}
+.reg_table{
+  width: 90%;
+  margin:1rem auto;
+}
+.reg_phone{
+  background: #fff;
+  height: 2.4rem;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #DBDBDB;
+      margin-bottom: 1rem;
+}
+.reg_icon_code,.reg_icon_phone{
+   width: 20px;
+   height: 37px;
+  position: absolute;
+     /*padding-left: 10px;*/
+  padding-right: 14px;
+  padding-top: 10px;
+}
+.reg_icon_phone{
+  background: url("./img/phone.png") no-repeat center center;
+ 
+}
+.reg_icon_code{
+    background: url("./img/pwd.png") no-repeat center center;
+}
+.reg_phone>input,.reg_code>input{
+   background: none;
+  border: none;
+  width: 80%;
+  padding-left: 2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  color: #ADADAD;
+  font-size: 0.8rem;
+   position:relative;
+}
+.reg_code>input{
+  width: 58%;
+}
+.reg_code_box{
+  height: 2.4rem;
+  margin-top:8px;
+  overflow: hidden;
+  position: relative;
+}      
+.reg_code,.reg_getcode{
+ 
+  height: 2.4rem;
+  border-radius: 3px;
+}  
+.reg_code{
+  float: left;
+  width: 100%;
+  position: relative;
+   background:#fff;
+}
+.reg_getcode{
+       float: right;
+    width: 56px;
+    text-align: center;
+    background: #4768AE;
+    position: absolute;
+    right: 0;
+    color: #fff;
+    line-height: 1.2rem;
+    font-size: 0.5rem;
+    padding: 0 5px;
+    height: 1.3rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+ .reg_phone>input::-webkit-input-placeholder,.reg_code>input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+   color: #ADADAD;
+
+ }
+  .reg_phone>input:-moz-placeholder,.reg_code>input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+   color: #ADADAD;
+
+ }
+  .reg_phone>input::-moz-placeholder,.reg_code>input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+   color: #ADADAD;
+
+ }
+  .reg_phone>input:-ms-input-placeholder,.reg_code>input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+   color: #ADADAD;
+
+ }
+ .reg_bind{
+   width: 90%;
+   background: #305396;
+   height: 1.6rem;
+  line-height: 1.6rem;
+  color: #fff;
+  border-radius: 3px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 1.1rem; 
+  font-size: 0.8rem;
+ }
+
+</style>

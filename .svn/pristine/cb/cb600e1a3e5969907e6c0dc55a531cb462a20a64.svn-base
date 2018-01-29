@@ -1,0 +1,68 @@
+<template>
+  <div class="hide_toolbar" >
+      <div class="toolbar">
+        <div class="EC_CP_header">
+          <div class="toolbar_lf" @click="isShowFn">
+            <span class="glyphicon glyphicon-menu-left"></span>
+          </div>
+          <div class="EC_CP_input1">
+            <input type="search" v-model="search"  name=""> 
+            <img  src="../assets/img/ML_search.png"  width="18px" height="18px" @click='searchFn'>
+          </div>  
+        </div>
+        <ul class="suggest-container">
+          <li >
+            <h3 class="suggest_title">
+              <span>搜索记录:</span>
+              <img src="./img/delete.png" width="15px" height="15px;" >
+            </h3>
+            <ul class="suggest-hotkey">
+              <li v-for="items in result">
+                {{items.goodsName}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+</template>
+<script>
+import {setCookie,getCookie} from '../cookie/cookie.js'
+import qs from 'qs'
+import Vue from 'vue'
+import router from '@/router'
+  export default {
+    name:'Search',
+    props:{
+      isShow:{
+        type:Boolean
+      }
+    },
+    data(){
+      return {
+          search:'',
+          // isShow:false,
+          path:''
+      }
+    },
+    mounted(){
+      this.$store.dispatch('getGoodsSearchOldInfo')
+    },
+    computed:{
+      result(){
+         return this.$store.state.GoodsSearchOldInfo.result
+      },
+  },
+    methods:{
+      searchFn(){
+        this.$router.push({path:'MallList',query:{goodsName:this.search,searchFlag:1}})
+      },
+      isShowFn(){
+         this.SetisShow(false)
+      },
+      SetisShow(){
+         this.$emit('getIsShow',this.isShow);
+      }
+    }
+  }
+</script>
